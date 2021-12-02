@@ -1,0 +1,70 @@
+{% extends "user/baseLog.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+  <link rel="stylesheet" href="{% static '/css/style.css'%}">
+{% endblock %}
+
+{% block title %} 
+    Catendar nhưng chưa tuyển mèo
+{% endblock %}
+
+{% block header %} 
+<h1 style="font-size: 55px;">Create an account  ˓˓ก₍⸍⸌̣ʷ̣̫⸍̣⸌₎ค˒˒  </h1>
+<p  style="font-size: 20px;">Already have an account?, 
+    <span>
+        <a class=" text-decoration-none fw-bold color-text" href="{% url 'login' %}">SIGN IN</a>
+    </span>
+</p>
+{% endblock %}
+
+{% block form %} 
+    <!-- BEGIN: form -->
+
+    <form action="." method="POST" >
+        {% csrf_token %}
+        <div class="mt-4 mb-3" >
+          <label for="imputUsername" class="form-label" style="font-size: larger;">Username</label>
+          {{form.username}}
+        </div>
+        <div class="mt-4 mb-3" >
+          <label for="imputUsername" class="form-label" style="font-size: larger;">Email</label>
+          {{form.email}}
+        </div>
+        <div class="mt-4 mb-3" >
+          <label for="imputUsername" class="form-label" style="font-size: larger;">Password</label>
+          {{form.password1}}
+        </div>
+        <div class="mt-4 mb-3" >
+          <label for="imputUsername" class="form-label" style="font-size: larger;">Confirm password</label>
+          {{form.password2}}
+        </div>
+        <div class="">
+          <center>
+            <div class="col-8 text-center">
+              <input type="submit" class="btn btn-primary button-rounded w-50 mt-1" 
+        style="font-size: 25px; height: 50px; margin-top: 1rem !important;" value="Sign up" />
+            </div>
+          </center>
+        </div>
+        
+        
+    </form>
+    <!-- END: form -->
+    <div class="container-fluid mt-3">
+    </div>
+    
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-2 bg-light">
+        </div>
+        <div class="col-2 bg-light">
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </div>
+
+{% endblock %}
+

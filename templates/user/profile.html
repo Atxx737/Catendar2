@@ -1,0 +1,99 @@
+{% extends "template.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block title %}
+    Catendar - Profile
+{% endblock %}
+
+
+k %}
+
+{% block title-frame %}
+    Profile ฅ^•ﻌ•^ฅ
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung row">
+                <div class = "profile-me py-3">
+                    <div class = "row">
+                        <!--avatar-->
+                        <div class="col-4">
+                            <img src="{{profile.avatar.url}}" style="width: 300px;" class="img-thumbnail rounded-circle" alt="...">
+                            <div class="profile mt-3 px-4">
+                                <h1 class="vcard-names ">
+                                    <span class="p-name vcard-fullname d-block overflow-hidden" itemprop="name">
+                                    </span>
+                                    <span class="p-nickname vcard-username d-block fs-4" itemprop="additionalName" style="color: #C36839;">
+                                        <strong>{{profile.user}}</strong>
+                                    </span>
+                                </h1>
+                                <div class="p-note user-profile-bio mb-3 js-user-profile-bio f4" data-bio-text="a dead-inside girl">
+                                    <div><cite >{{profile.bio}}</cite ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--avatar-->
+
+                        <div class="col-8">
+                            <h4 class="mb-4 text-normal">
+                                Profile của {{profile.user}} đây!
+                            </h4>
+                           
+                            <form class="row g-3">
+                                <div class="col-md-6">
+                                    <label  class="form-label">Last name</label>
+                                    <div  class="form-control">{{profile.lastname}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputFirstname4" class="form-label">First name</label>
+                                    <div  class="form-control" id="inputFirstname4">{{profile.firstname}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="inputState" class="form-label">Gender</label>
+                                    <div  class="form-control" id="inputState">{{profile.gender}}</div>
+
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="inputBirth4" class="form-label">Date of Birth</label>
+                                    <div  class="form-control" id="inputBirth4">{{profile.birth|date:"d/m/Y"}}</div>
+                                </div>
+                                <div class="col-4">
+                                    <label for="inputID2" class="form-label">ID</label>
+                                    <div class="form-control"  id="inputID2" value="ID" 
+                                        aria-label="readonly input example" readonly>{{profile.user.id}} </div>
+                                </div>
+                                <div class="col-8">
+                                    <label for="formGroupExampleInput" class="form-label">Email</label>
+                                    <div  class="form-control" id="formGroupExampleInput" >{{profile.user.email}}</div>
+                                </div>
+                                {% if user.is_authenticated and  user.id == profile.user.id %}
+                                <div class="button col-12" style="transform: translateX(80%);">
+                                    <a  class="btn btn-outline-primary" href="{% url 'edit-profile' profile.user.username %}" >Update</a>
+                                </div>
+                                {% endif %}
+
+                            </form>
+
+                        </div>
+                    </div>
+                    <center>
+                        <img src="{% static 'images/meogay.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 5px;">
+                    </center>
+                </div>
+                
+            </div>
+        </div>                   
+
+           
+            
+    </div>
+{% endblock %}
+

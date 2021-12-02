@@ -1,0 +1,68 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block title %}
+    Catendar đang tuyển mèo
+{% endblock %}
+
+
+
+{% block title-frame %}
+    Create task for project ฅ^•ﻌ•^ฅ
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung">
+                <!-- BEGIN: group1 -->
+                
+               <div class="row g-3 " style="margin-top: 30px;">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div  class="row g-3" >
+                            <div class="col-md-5">
+                                <label  class="form-label ">Project</label>
+                                {{formTask.project}}
+
+                            </div>
+                             <div class="col-md-6">
+                                <label  class="form-label">Task</label>
+                                {{formTask.task}}
+
+                            </div>
+                            <div class="col-md-9">
+                                <label for="inputFirstname4" class="form-label">Decription</label>
+                                {{formTask.decription}}
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputBirth4" class="form-label">Deadline</label>
+                                {{formTask.deadline}}
+
+                            </div>
+                        </div>
+                        <hr>
+
+                                <input type="submit" class="btn btn-outline-primary " value="Add task" />
+
+                                <a href="{% url 'home' user.id %}" class="btn btn-outline-secondary ">Cancel</a>
+                        
+                    </form>
+               </div>
+                
+                <!-- END: group1 -->
+
+            </div>
+        </div>                   
+
+           
+            
+    </div>
+{% endblock %}
+

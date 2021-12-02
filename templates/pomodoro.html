@@ -1,0 +1,55 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/pomodoro.css' %}">
+{% endblock %}
+
+{% block title %}
+Catendar - Pomodoro
+{% endblock %}
+
+
+
+{% block title-frame %}
+    Focus Study (´▽`ʃ♡ƪ)
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+         <!-- BEGIN: khung-content pomodoro-->
+         <div class="content-khung row">
+            <div id="pomodoro-app">
+                <div id="container-pomo">
+                  <div id="timer">
+                    <div id="time">
+                      <span id="minutes">25</span>
+                      <span id="colon">:</span>
+                      <span id="seconds">00</span>
+                    </div>
+                    <div id="filler"></div>
+                  </div>
+                  <center>
+                    <div id="buttons">
+                    <button id="work">Work</button>
+                    <button id="shortBreak">Short Break</button>
+                    <button id="longBreak">Long Break</button>
+                    <button id="stop">Stop</button>
+                  </div>
+                  </center>
+                </div>
+            </div>
+            <center>
+                <img src="{% static 'images/meoyanglake.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 5px;">
+            </center>
+        </div>
+        <!-- BEGIN: khung-content  -->                    
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/pomodoro.js'%}"></script>
+{% endblock %}
+

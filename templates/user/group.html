@@ -1,0 +1,65 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block title %}
+Catendar đang tuyển mèo
+{% endblock %}
+
+
+
+{% block title-frame %}
+    Group (ΦωΦ)
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung row">
+                <!-- BEGIN: group1 -->
+                <div class="col-13  my-2 rounded-2 overflow-hidden">
+                    <div class="container-fluid py-1 bg-pink border">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span class="d-inline ">
+                                <h4 class=" fw-bolder">LTW</h4>
+                            </span>
+                            <span class="d-inline ">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </span>
+                        </div>
+                        <p >Project</p>
+                        <p >Member</p>
+                    </div>
+                </div>
+                <!-- END: group1 -->
+                
+                <!-- BEGIN: group2 -->
+                <div class="col-13  my-2 rounded-2 overflow-hidden">
+                    <div class="container-fluid py-1 bg-yellow border">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span class="d-inline ">
+                                <h4 class=" fw-bolder">LTW</h4>
+                            </span>
+                            <span class="d-inline ">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </span>
+                        </div>
+                        <p >Project</p>
+                        <p >Member</p>
+                    </div>
+                </div>
+                <!-- END: group2 -->
+
+            </div>
+        </div>                   
+
+           
+            
+    </div>
+{% endblock %}
+

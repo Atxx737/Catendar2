@@ -1,0 +1,232 @@
+:root {
+  --primary: #08aeea;
+  --secondary: #13d2b8;
+  --purple: #bd93f9;
+  --pink: #ff6bcb;
+  --blue: #8be9fd;
+  --gray: #333;
+  --font: "Poppins", sans-serif;
+  --gradient: linear-gradient(40deg, #ff6ec4, #7873f5);
+  --shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+}
+#cointainer{
+background-image: url(cat-doodle-element_53876-117811.jpg);
+}
+#timer{ 
+  color:#E6739F; 
+  font-size:50px; 
+  margin:10px auto;
+  border : 5px solid #E6739F;
+  border-radius:50%;
+  width:200px;
+  height:200px;
+  overflow:hidden;
+  position:relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor:default;
+}
+#filler{
+  background : #FDD2BF;
+  height: 0px;
+  width: 200px;
+  position:absolute;
+  bottom:0;
+  opacity: 0.5;
+  z-index: 1;
+}
+#time{
+  margin-top:70px;
+  padding-bottom: 20px;
+  text-align: center;
+  transform: translateY(-5%);
+  position: relative;
+  z-index: 2;
+}
+
+
+#buttons button { 
+  background:#F5B461; 
+  border:none; 
+  color:#fff; 
+  cursor:pointer; 
+  padding:16px; 
+  width:120px; 
+  margin:30px auto;
+  font-size:15px;
+  height : 50px;
+  border-radius : 2rem;
+  font-family: "Overpass", sans-serif;
+}
+
+#buttons button#shortBreak{
+  background : #B0E0A8;
+}
+
+#buttons button#longBreak{
+  background : #3A9679;
+}
+
+#buttons button#stop{
+  background : #E16262;
+}
+/* add */
+html,
+body {
+margin: 0;
+padding: 0;
+background-color: rgb(246, 247, 252);
+font-family: "Overpass", sans-serif;
+}
+.menubar-img {
+width: 30px;
+/* height: 50px; */
+}
+.icon-img {
+width: 30px;
+}
+.frame-rounded{
+border-radius: 5rem!important;
+}
+.rounded-3{
+border-radius: 0.3rem;
+}
+
+/* You can remove these code below*/
+
+* {
+box-sizing: border-box;
+}
+input,
+button,
+textarea {
+border: 0;
+outline: none;
+}
+/* Main code */
+
+.calendar {
+padding: 0.5rem 0.2rem;
+width: 100%;
+background-color: white;
+box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+border-radius: 12px;
+}
+.calendar-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+/* margin-bottom: 1.5rem; */
+padding: 0.5rem;
+}
+.calendar-year {
+color: #1a2633;
+font-size: 1.8rem;
+font-weight: normal;
+}
+.calendar-action {
+font-size: 3rem;
+color: var(--primary);
+}
+.calendar-action i {
+cursor: pointer;
+}
+.calendar-action i:last-child {
+margin-left: 3rem;
+}
+.calendar-table {
+width: 97%;
+vertical-align: middle;
+table-layout: fixed;
+}
+.calendar-table th {
+color: #999;
+font-size: 1.2rem;
+}
+.calendar-table th,
+.calendar-table td {
+padding: 1rem;
+border-radius: 4px;
+text-align: center;
+}
+.calendar-table td {
+vertical-align: middle;
+width: 3.5rem;
+height: 3.5rem;
+cursor: pointer;
+}
+.calendar-table td.other {
+color: #999;
+opacity: 0.5;
+}
+.calendar-table td:hover {
+color: white;
+background-color: var(--primary);
+}
+@media screen and (max-width: 767px) {
+.calendar {
+  padding: 1.5rem;
+}
+.calendar-header {
+  margin-bottom: 5px;
+}
+.calendar-content {
+  width: 100%;
+  overflow-x: auto;
+}
+.calendar td {
+  font-size: 1.2rem;
+  width: auto;
+  height: auto;
+}
+}
+
+.bg-pink{
+  background-color:#f8e5e5;
+}
+.bg-orange{
+background-color: #fbe0ba;
+}
+.bg-yellow{
+background-color: #faefc4;
+}
+.bg-green{
+background-color: #d5f8ce;
+}
+.bg-blue{
+background-color: #ceecf8;
+}
+
+
+.bg-pinkload {
+  --bs-bg-opacity: 1;
+  background-color:rgba(216, 119, 119, 0.9)!important;
+}
+.bg-orangeload {
+--bs-bg-opacity: 1;
+background-color:rgba(221, 158, 70, 0.774)!important;
+}
+.bg-yellowload {
+--bs-bg-opacity: 1;
+background-color:rgba(249, 216, 28, 0.753)!important;
+}
+.bg-greenload {
+--bs-bg-opacity: 1;
+background-color:rgba(58, 144, 41, 0.856)!important;
+}.bg-blueload {
+--bs-bg-opacity: 1;
+background-color:rgba(26, 125, 164, 0.822)!important;
+}
+
+.border{
+border-radius: 12px;
+border-color:none;
+}
+.bg-light{
+background-color: #fff!important;
+}
+.fr-padding{
+padding: 0.5rem;
+}

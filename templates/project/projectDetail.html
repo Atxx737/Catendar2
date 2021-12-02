@@ -1,0 +1,121 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css'%}">
+{% endblock %}
+
+{% block title %}
+Catendar - Home
+{% endblock %}
+
+
+
+
+{% block title-frame %}
+{{project.name_project}}
+{% endblock %}
+
+{% block thongtin %}
+<div class="row">
+    <!--BEGIN: Nav-tab -->
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" 
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Details</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Task</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" 
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">User</button>
+        </div>
+        
+    </nav>
+    <!-- END: Nav-tab -->
+
+    <!--BEGIN: content -->
+    <div class="tab-content" id="nav-tabContent">
+        <!--BEGIN: frame-project Detail -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung row"> 
+                <div class="container">
+                    <div class="row py-4">
+                        <div class="col px-5">
+                                <div class="chart-bar">
+                                    
+                                </div>
+                        </div>
+                        <div class="col ">
+                            <div class="content">
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label h5">Name project:</label>
+                                    <p  class="form-control" id="formGroupExampleInput" > {{project.name_project}}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label h5">Decriptions:</label>
+                                    <p  class="form-control" id="formGroupExampleInput" > {{project.decription}}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label h5">Deadline:</label>
+                                    <p  class="form-control" id="formGroupExampleInput" > {{project.deadline|date:"d/m/Y"}}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label h5">Status:</label>
+                                    <p  class="form-control" id="formGroupExampleInput" > {{project.status}}</p>
+                                </div>
+                                <a type="submit" style="transform: translateX(900%) !important;" 
+                                    class="btn btn-outline-primary" href="{% url 'update' project.id %}" > Edit</a>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                
+            </div>
+        </div>
+        <!--END: frame-project Detail  -->
+
+        <!--BEGIN: frame-project Task  -->
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="content-khung row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Task</th>
+                            <th scope="col">Decriptions</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for task in task %}
+                    <tr>
+                        <td> {{task.task}}</td>
+                        <td>{{task.decription}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.status}}</td>
+                    </tr>
+                    {% endfor %}
+                   
+                    </tbody>
+                </table>
+
+                <a type="submit" style="width: 60px" class="btn btn-outline-primary" 
+                    href="{% url 'createTask' project.id %}" > Add</a>
+            </div>
+            
+        </div>
+        <!--END: frame-project Task  -->
+        
+        <!--BEGIN: frame-project User -->
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="content-khung row">
+                
+            </div>
+        </div>
+        <!--END: frame-project User -->
+
+    </div>
+    <!--END: content -->
+</div>
+{% endblock %}

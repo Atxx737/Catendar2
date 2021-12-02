@@ -1,0 +1,90 @@
+{% extends "user/baseLog.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+  <link rel="stylesheet" href="{% static '/css/style.css'%}">
+{% endblock %}
+
+{% block title %} 
+    Catendar nhưng chưa tuyển mèo
+{% endblock %}
+
+{% block header %} 
+<h1 style="font-size: 55px;">Welcome back! :･ﾟ✧ฅ(^•ㅅ•❀^)ฅ:･ﾟ✧  </h1>
+<p style="font-size: 20px;">Don't have an account, 
+  <span>
+    <a class=" text-decoration-none fw-bold color-text" 
+    href="{% url 'signup' %}">SIGN UP</a>
+  </span>
+</p>
+
+{% endblock %}
+
+{% block form %} 
+    <!-- BEGIN: form -->
+
+    <form method="POST">
+        {% csrf_token %}
+        {% for key, value in form.error.items %}
+          {{value}}
+        {% endfor %}
+        
+        <div class="mt-4" style="margin-bottom: 2rem;" >
+          <label for="imputUsername" class="form-label" style="font-size: larger;">Username</label>
+          <input type="text" name="username" class="form-control" id="imputUsername" style="height: 60px;">
+        </div>
+        <div class="" style="margin-bottom: 1rem;">
+          <label for="exampleInputPassword1" class="form-label"  style="font-size: larger;">Password</label>
+          <input type="password" name="password" class="form-control" id="inputPassword" style="height: 60px;">
+        </div>
+        <div class="mb-4 mt-3">
+          <!-- <div class="radio d-inline">
+            <input id="radio-1" name="radio" type="radio" checked>
+            <label for="radio-1" class="radio-label ">Remember me</label>
+          </div>
+          <div class="d-inline float-end">
+            <a class="color-text text-decoration-none" href="">Forget password?</a>
+
+          </div> -->
+        </div>
+        <div>
+          <center>
+            <div class="col-8 text-center">
+              <input type="hidden" name="next" value="/"/>
+              <input type="submit" 
+                  class="btn btn-primary button-rounded w-50" 
+                  style="font-size: 25px; height: 50px;" value="Sign in" />
+            </div>
+          </center>
+        </div>
+        
+    </form>
+    <!-- END: form -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+          <div class="col-4  border-color"></div>
+          <div class="col-4 text-center">or continue with</div>
+          <div class="col-4  border-color"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-2 bg-light">
+            <a href="https://www.facebook.com">
+              <img src="{% static 'images/icons8-facebook-240.png'%}" class="w-100" alt="">
+            </a>
+          </div>
+          <div class="col-2 bg-light">
+            <a href="https://www.google.com">
+              <img src="{% static 'images/icons8-google-480.png'%}" class="w-100" alt="">
+            </a>
+          </div>
+          <div class="col-4"></div>
+        </div>
+    </div>
+
+{% endblock %}
+

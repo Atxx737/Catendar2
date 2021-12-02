@@ -1,0 +1,85 @@
+{% extends "template.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block title %}
+    Catendar - Edit Profile
+{% endblock %}
+
+
+
+{% block title-frame %}
+    Edit Profile 
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung row">
+                <div class = "profile-me">
+                    <div class = "row">
+                        <!--avatar-->
+                        <div class="col-4 " >
+                                <img src="{{request.user.profile.avatar.url}}" style="width: 500px;" class="img-thumbnail rounded-circle" alt="...">
+                                <div class="profile mt-3 px-4">
+                                    <h1 class="vcard-names ">
+                                        <span class="p-name vcard-fullname d-block overflow-hidden" itemprop="name">
+                                        </span>
+                                        <span class="p-nickname vcard-username d-block fs-4" itemprop="additionalName" style="color: #C36839;">
+                                            <strong>{{request.user.username}}</strong>
+                                        </span>
+                                    </h1>
+                                    <div class="p-note user-profile-bio mb-3 js-user-profile-bio f4" data-bio-text="a dead-inside girl">
+                                        <div><cite >{{request.user.profile.bio}}</cite ></div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--avatar-->
+
+                        <div class="col-7 px-3" style="transform: translateX(15%);">
+                            <p>
+                                
+                            </p>
+                            {% if user.is_authenticated  %}
+                           
+                            <form action="." method="POST" enctype="multipart/form-data" >
+                                {% csrf_token %}
+                                {{userForm.as_p}}
+                                {{form.as_p}}
+                                <div class="button" style="transform: translateX(50%);">
+                                    <input type="submit" class="btn btn-outline-primary " value="Edit" />
+                                    <a href="{% url 'profile' user.username %}" class="btn btn-outline-secondary ">Cancel</a>
+                                </div>
+                                
+                            </form>
+                            {% else %}
+                            <div class="wronguser py-10 ">
+                                <p>
+                                    <h2>Oops, do not edit other profile that's not yours, okay? Love you</h2>
+                                </p>
+                                <div class="button" style="transform: translateX(70%);">
+                                    <a href="{% url 'home'  user.id %}" class="btn btn-outline-secondary ">Back</a>
+                                </div>
+                            </div>
+                            
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>                   
+
+           
+            
+    </div>
+{% endblock %}
+
+
