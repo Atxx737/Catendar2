@@ -11,8 +11,6 @@ Catendar - Home
 {% endblock %}
 
 
-
-
 {% block title-frame %}
 {{project.name_project}}
 {% endblock %}
@@ -40,11 +38,14 @@ Catendar - Home
             <div class="content-khung row"> 
                 <div class="container">
                     <div class="row py-4">
+                        <!-- BEGIN: Chart -->
                         <div class="col px-5">
                                 <div class="chart-bar">
                                     
                                 </div>
                         </div>
+                        <!-- END: Chart -->
+
                         <div class="col ">
                             <div class="content">
                                 <div class="mb-3">
@@ -79,29 +80,39 @@ Catendar - Home
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="content-khung row">
                 <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Task</th>
-                            <th scope="col">Decriptions</th>
-                            <th scope="col">Deadline</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for task in task %}
-                    <tr>
-                        <td> {{task.task}}</td>
-                        <td>{{task.decription}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.status}}</td>
-                    </tr>
-                    {% endfor %}
-                   
-                    </tbody>
+                    
+                        <thead>
+                            <tr>
+                                <th scope="col">Task</th>
+                                <th scope="col">Decriptions</th>
+                                <th scope="col">Deadline</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                      
+                        <tbody >
+                       
+                            {% for task in task %}
+                            <tr>
+                                <td> {{task.task}}</td>
+                                <td>{{task.decription}}</td>
+                                <td>{{task.deadline|date:"d/m/Y"}}</td>
+                                <td>{{task.status}}</td>
+                                <td>
+                                    <a type="submit" class="btn btn-outline-info" 
+                                        href="{% url 'updateTask' task.id %}" >Yes </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                            
                 </table>
-
-                <a type="submit" style="width: 60px" class="btn btn-outline-primary" 
-                    href="{% url 'createTask' project.id %}" > Add</a>
+                
+                    
+                <a type="submit" style="width: 200px" class="btn btn-outline-primary" 
+                        href="{% url 'createTask' project.id %}" > Add new task</a>
             </div>
             
         </div>
@@ -118,4 +129,8 @@ Catendar - Home
     </div>
     <!--END: content -->
 </div>
+{% endblock %}
+
+{% block script %}
+
 {% endblock %}

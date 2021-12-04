@@ -13,7 +13,7 @@ from home.models import *
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={ 'style': 'height: 50px;','class': 'form-control'}),
-        label='Username', max_length=30)
+        label='Username', max_length=15)
     email= forms.EmailField(widget=forms.EmailInput(attrs={'style': 'height: 50px;','class': 'form-control'}),label='Email')
     password1=forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'style':'height: 50px;','class': 'form-control'}))
     password2=forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'style':'height: 50px;','class': 'form-control'}))
@@ -39,11 +39,10 @@ class RegistrationForm(forms.Form):
     def save(self):
         User.objects.create_user(username=self.cleaned_data['username'], email= self.cleaned_data['email'], password=self.cleaned_data['password1'])
 
-######################################################
 
 ######################################################
 
-class createProjectForm(forms.ModelForm):
+class createProjectForm(ModelForm):
     class Meta: 
         model= Project
         fields=('name_project','decription','group','deadline')
@@ -100,7 +99,6 @@ class editProfileForm(forms.ModelForm):
         
 ######################################################
 class createTaskForm(forms.ModelForm):
-    
     class Meta:
         model= Task
         fields=('project','task','decription','deadline')
@@ -110,10 +108,20 @@ class createTaskForm(forms.ModelForm):
             'decription': forms.TextInput(attrs={ 'class': 'form-control'}),
             'deadline': forms.NumberInput(attrs={ 'type':'date','class': 'form-control '}),
         }
-    # def clean_task(self):
-    #     task= self.cleaned_data['task']
-    #     if not re.search(r'^\w+$', task): #tên chứa ký tự đặc biệt
-    #         raise forms.ValidationError("Task name contains special characters") # báo lỗi
-        
-
+######################################################
+    
+class updateTaskForm(forms.ModelForm):
+    class  Meta:
+        model = Task
+        fields=('task','decription','deadline','status')
+        CHOICES=(
+        ('1','Complete'),
+        ('0','Incomplete ')
+        )
+        widgets={
+            'task': forms.TextInput(attrs={ 'class': 'form-control'}),
+            'decription': forms.TextInput(attrs={ 'class': 'form-control'}),
+            'deadline': forms.NumberInput(attrs={ 'type':'date','class': 'form-control'}),
+            'status': forms.Select(attrs={ 'class': 'form-control'},choices=CHOICES),
+        }
     

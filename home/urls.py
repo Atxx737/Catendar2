@@ -20,6 +20,7 @@ urlpatterns = [
    path('detail/<int:project_id>/', views.detailProject, name='detail'),
 
    path('create-task/<int:project_id>/', views.createTask, name='createTask'),
+   path('update-task/<int:task_id>/', views.updateTask, name='updateTask'),
 
    # path( 'login/',auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
    path( 'login/',views.login_view, name='login'),

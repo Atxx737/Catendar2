@@ -88,7 +88,7 @@ def createProject_view(request, username):
         if form_prj.is_valid():
             form_prj.save()
             messages.success(request, "Success")
-            url = reverse('home', username)
+            url = reverse('home', request.user.id)
             return HttpResponseRedirect(url)
         else:
             messages.error(request, "Error create project")
@@ -103,7 +103,7 @@ def updateProject(request,id):
         form= updateProjectForm(request.POST,instance=project)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('home',request.user.id)
     context={'form':form}
     return render(request,'project/projectUpdate.html',context)
 
@@ -111,7 +111,7 @@ def deleteProject(request, id):
     project= Project.objects.get(id=id)
     if request.method=='POST':
         project.delete()
-        return redirect('/')
+        return redirect('home',request.user.id)
         
     context={'project':project}
     return render(request,'project/confirm-delete.html',context)
@@ -119,20 +119,14 @@ def deleteProject(request, id):
 def detailProject(request,project_id):
     prj= Project.objects.get(id=project_id)
     task_obj= Task.objects.filter(project=prj.id)
+    gr= Group.objects.get(name=prj.group)
+    
     
     context={
         'project':prj,
-        'task':task_obj
+        'task':task_obj,
     }
     return render(request,'project/projectDetail.html',context)
-
-
-
-
-# ######################################
-
-def group_view(request):
-    return render(request,'user/group.html')
 
 def createTask(request,project_id):
     prj= Project.objects.get(id=project_id)
@@ -151,4 +145,27 @@ def createTask(request,project_id):
         'formTask':formTask,
     }
     return render(request,'task/createTask.html', context)
+
+def updateTask(request,task_id):
+    tsk=Task.objects.get(id=task_id)
+    prj= Project.objects.get(task=tsk)
+    form_updateTask= updateTaskForm(instance=tsk)
+    if request.method=='POST':
+        form_updateTask= updateTaskForm(request.POST,instance=tsk)
+        if form_updateTask.is_valid():
+            form_updateTask.save()
+            return redirect('detail',prj.id)
+        
+    context={
+        'form_updateTask':form_updateTask,
+    }
+    return  render(request,'task/updateTask.html',context)
+
+# ######################################
+def group_view(request):
+    return render(request,'user/group.html')
+
+
+
+
 

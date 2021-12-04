@@ -25,7 +25,12 @@
                     <div class = "row">
                         <!--avatar-->
                         <div class="col-4 " >
-                                <img src="{{request.user.profile.avatar.url}}" style="width: 500px;" class="img-thumbnail rounded-circle" alt="...">
+                                <div class="img-wrap" style="width: 350px;">
+                                    <div class="img" style="background-image:url({{request.user.profile.avatar.url}})">
+
+                                    </div>
+                                </div>
+                                <!-- <img src="{{request.user.profile.avatar.url}}" style="width: 500px;" class="img-thumbnail rounded-circle" alt="..."> -->
                                 <div class="profile mt-3 px-4">
                                     <h1 class="vcard-names ">
                                         <span class="p-name vcard-fullname d-block overflow-hidden" itemprop="name">
@@ -42,9 +47,7 @@
                         <!--avatar-->
 
                         <div class="col-7 px-3" style="transform: translateX(15%);">
-                            <p>
-                                
-                            </p>
+                            
                             {% if user.is_authenticated  %}
                            
                             <form action="." method="POST" enctype="multipart/form-data" >

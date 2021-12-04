@@ -13,8 +13,8 @@ class projectAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class taskAdmin(admin.ModelAdmin):
-    list_display=('task','status','deadline','project')
-
+    list_display=('id','task','status','deadline','project')
+    list_filter= ('status','project')
 # @admin.register(ToDo)
 # class todoAdmin(admin.ModelAdmin):
 #     list_display=('project','task','todo_CHOICES',)

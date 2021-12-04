@@ -10,6 +10,7 @@ var pomodoro = {
     fillerDom : null,
     init : function(){
       var self = this;
+      this.audioDom=document.querySelector('#audio');
       this.minutesDom = document.querySelector('#minutes');
       this.secondsDom = document.querySelector('#seconds');
       this.fillerDom = document.querySelector('#filler');
@@ -40,7 +41,7 @@ var pomodoro = {
       this.resetVariables(25, 0, true);
     },
     startShortBreak : function(){
-      this.resetVariables(5, 0, true);
+      this.resetVariables(1, 0, true);
     },
     startLongBreak : function(){
       this.resetVariables(15, 0, true);
@@ -78,6 +79,7 @@ var pomodoro = {
     timerComplete : function(){
       this.started = false;
       this.fillerHeight = 0;
+      this.audioDom.play()
     }
 };
 window.onload = function(){

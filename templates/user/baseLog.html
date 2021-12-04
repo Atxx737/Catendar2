@@ -20,25 +20,26 @@
     <title>{% block title %}  {% endblock %}</title>
 </head>
 
-<body class="overflow-auto" style="height: 100vh;">
-  <header class="container-fluid mt-5 wow bounceInUp">
+<body >
+  <header class="container mt-5 wow bounceInUp">
     <img src="{% static 'images/catendar.png'%}" alt="">
     {% block header %} 
      {% endblock %}
      {% include 'messages.html'%} 
   </header>
   <section class="formLogin mt-3 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-lg-7">
           <!-- BEGIN: form -->
           {% block form %} 
           
           {% endblock %}
         </div>
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-lg-5 d-lg-block d-none text-center">
             <img src="{% static 'images/Untitled-1.png'%}" 
-            style="height: 33%; transform: translateY(-19%); padding-left: 2rem;"alt="">
+            class="w-75"
+            style="ransform: translateY(-19%); padding-left: 2rem; transform: translateY(-30%);"alt="">
         </div>
       </div>
     </div>

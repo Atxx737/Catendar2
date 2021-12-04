@@ -4,7 +4,6 @@ body {
   padding: 0;
   background-color: rgb(246, 247, 252);
   font-family: "Overpass", sans-serif;
-  overflow: hidden;
 }
 .menubar-img {
   width: 30px;
@@ -88,8 +87,6 @@ textarea {
 }
 .calendar-table td {
   vertical-align: middle;
-  width: 3.5rem;
-  height: 3.5rem;
   cursor: pointer;
 }
 .calendar-table td.other {
@@ -167,4 +164,28 @@ textarea {
 }
 
 
-a { text-decoration: none }
+a { 
+    text-decoration: none;
+    color: #343a40; 
+  }
+
+  .img-wrap
+{
+    width: 300px;
+    border-radius:50%;
+    overflow: hidden;
+}
+.img
+{
+    padding-top: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.header-img-wrap{
+  
+    width: 30px;
+    border-radius:50%;
+    overflow: hidden;
+}
