@@ -4,18 +4,31 @@ from django.http import HttpResponseRedirect
 from home.form import  *
 from django.contrib import messages 
 from home.models import  Project
-from django.forms import inlineformset_factory, modelformset_factory
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
+import online_users.models
+from datetime import timedelta
+from django.core.paginator import Paginator
 # ######################################
 
 def home_view(request, user_id):
     gr= Group.objects.filter(user=user_id)
-
-    prj= Project.objects.filter(group__in=gr).filter(status="Incomplete")
-    prjDone= Project.objects.filter(group__in=gr).filter(status="Complete")
-    prjTotal= Project.objects.filter(group__in=gr)
+    q_project= Project.objects.filter(group__in=gr).filter(status="Incomplete")
+    q_prjDone= Project.objects.filter(group__in=gr).filter(status="Complete")
+    q_prjTotal= Project.objects.filter(group__in=gr).order_by('deadline')
+    #set up pagination
+    p_total= Paginator(q_prjTotal,6)
+    page_total= request.GET.get('page')
+    prjTotal=p_total.get_page(page_total)
+    ##############
+    p_done= Paginator(q_prjDone,6)
+    page_done= request.GET.get('page')
+    prjDone=p_done.get_page(page_done)
+    ##############
+    p_project= Paginator(q_project,6)
+    page_project= request.GET.get('page')
+    prj=p_project.get_page(page_project)
+    
     context={
         "Project":prj,
         "ProjectDone":prjDone,
@@ -36,12 +49,31 @@ def login_view(request):
        
     return render(request, 'user/login.html')
 
+def pomodoro_view(request):
+    return render(request,'pomodoro.html')
+
+def register_view(request):
+    form_signup = RegistrationForm
+    if request.method =='POST':
+        form_signup = RegistrationForm(request.POST)
+        if form_signup.is_valid():
+            form_signup.save()
+            messages.success(request, "Sign up Success!")
+            url = reverse('login')
+            return HttpResponseRedirect(url)
+    context={
+        'form': form_signup,
+    }
+    return render(request, 'user/register.html',context )
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 def profile_view(request,username):
     user=User.objects.get(username=username)
     profile= Profile.objects.get(user=user.id)
     context={
         'profile':profile
     }
+    print(profile)
     return render(request, 'user/profile.html',context)
 
 def editProfile(request,username):
@@ -64,22 +96,22 @@ def editProfile(request,username):
     }
     return render(request,'user/editProfile.html',context)
 
-def pomodoro_view(request):
-    return render(request,'pomodoro.html')
-
-def register_view(request):
-    form_signup = RegistrationForm
-    if request.method =='POST':
-        form_signup = RegistrationForm(request.POST)
-        if form_signup.is_valid():
-            form_signup.save()
-            messages.success(request, "Sign up Success!")
-            url = reverse('login')
+def createProfile(request,username):
+    createProflie=editProfileForm()
+    
+    if request.method=='POST':
+        createProflie=editProfileForm(request.POST)
+        if createProflie.is_valid():
+            createProflie.save()
+            messages.success(request, "Success")
+            url = reverse('home', request.user.id)
             return HttpResponseRedirect(url)
-    context={
-        'form': form_signup,
-    }
-    return render(request, 'user/register.html',context )
+        else:
+            messages.error(request, "Error create profile")
+    
+    context={'createProflie':createProflie}
+    return render(request,'user/createProfile.html',context)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def createProject_view(request, username):
     form_prj=createProjectForm()
@@ -120,13 +152,15 @@ def detailProject(request,project_id):
     prj= Project.objects.get(id=project_id)
     task_obj= Task.objects.filter(project=prj.id)
     gr= Group.objects.get(name=prj.group)
-    
+    user=User.objects.filter(groups=gr)
     
     context={
         'project':prj,
         'task':task_obj,
+        'user':user,
     }
     return render(request,'project/projectDetail.html',context)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def createTask(request,project_id):
     prj= Project.objects.get(id=project_id)
@@ -161,11 +195,57 @@ def updateTask(request,task_id):
     }
     return  render(request,'task/updateTask.html',context)
 
+def deleteTask(request, id):
+    tskDelete=Task.objects.get(id=id)
+    if request.method=='POST':
+        tskDelete.delete()
+        return redirect('home',request.user.id)
+    
+    context={'tskDelete':tskDelete}
+    return render(request,'task/deleteTask.html',context)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def createGroup(request, user_id):
+    member= User.objects.get(id=user_id)
+    if request.method=='POST':
+        name=request.POST.get('name')
+        if name != '':
+            group=Group.objects.get_or_create(name = name)
+            group = Group.objects.get(name = name)
+            member.groups.add(group)
+            group.save()
+   
+    return redirect('group',user_id)
+
+def group_view(request,user_id):
+    gr= MyGroup.objects.filter(user=user_id)
+    context={
+        'gr':gr,
+    }
+    return render(request,'user/group/group.html',context)
+
+def deleteGroup(request,group_id):
+    grDelete=Group.objects.get(id=group_id)
+    if request.method=='POST':
+        grDelete.delete()
+        return redirect('group',request.user.id)
+    context={
+        'grDelete':grDelete
+    }
+    return render(request,'user/group/deleteGroup.html',context)
+
 # ######################################
-def group_view(request):
-    return render(request,'user/group.html')
 
 
 
+def addUser(request):
+    g = Group.objects.get(name='My Group Name')
+    users = User.objects.all()
+    g.user_set.add(users)
+    return 
+def see_users(request):
 
-
+  user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
+  users = (user for user in  user_status)
+  context = {'online_users':online_users}
+  return render(request,'template.html',context)
+  

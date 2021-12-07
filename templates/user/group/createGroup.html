@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block title %}
-    Catendar đang tuyển mèo
+    Catendar nhưng chưa tuyển mèo
 {% endblock %}
 
 
 
 
 {% block title-frame %}
-    Update task ฅ^•ﻌ•^ฅ
+    Add project ฅ^•ﻌ•^ฅ
 {% endblock %}
 
 {% block thongtin %}
@@ -25,20 +25,20 @@
                 <!-- BEGIN: group1 -->
                 
                <div class="mb-3" style="margin-top: 30px;">
-                    <form action="." method="POST" >
-                        {% csrf_token %}
-                            {{form_updateTask.as_p}}
-                        
-                        <input type="submit" class="btn btn-primary " value="Update" />
-                        <a href="{% url 'home' user.id %}" class="btn btn-outline-secondary ">Cancel</a>
-                    </form>
+                <form action="." method="POST" >
+                    {% csrf_token %}
+                        {{createGroup.as_p}}
+                    <!-- style form -->
                     
+                    <!-- end -->
+                    <input type="submit" class="btn btn-outline-primary " value="Add" />
+                    <a href="{% url 'group' user.id %}" class="btn btn-outline-secondary ">Cancel</a>
+                </form>
+
                </div>
-               
+                
                 <!-- END: group1 -->
-                <center>
-                    <img src="{% static 'images/meobeo.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 5px;">
-                </center>
+                
 
             </div>
         </div>                   

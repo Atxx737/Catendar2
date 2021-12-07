@@ -1,0 +1,28 @@
+
+<div class="container">
+    <h4 class="title">Notification</h4>
+    {% if not notifications %}
+        No notifications yet!
+    {% endif %}
+    {% for item in notifications %}
+        <div class="notification">
+            <p>
+                {% if  notifications.notifcation_type=='task' %}
+                    <strong>{{notifications.created_by.username}}</strong> edit task <br>
+                    <small> {{notifications.created_date|timesince}} ago</small>
+                
+                {% elif notifications.notifcation_type=='project' %}
+                    <strong>{{notifications.created_by.username}}</strong> edit project <br>
+                    <small> {{notifications.created_date|timesince}} ago</small>
+
+                {% elif notifications.notifcation_type=='group' %}
+                    <strong>{{notifications.created_by.username}}</strong> edit group <br>
+                    <small> {{notifications.created_date|timesince}} ago</small>
+                {% endif %}
+
+            </p>
+        </div>
+    {% endfor %}
+</div>
+
+

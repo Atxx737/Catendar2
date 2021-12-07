@@ -1,0 +1,89 @@
+{% extends "template.html" %}
+
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block title %}
+Catendar đang tuyển mèo
+{% endblock %}
+
+
+
+{% block title-frame %}
+    Group (ΦωΦ)
+{% endblock %}
+
+{% block thongtin %}
+    <div class="row mt-5 py-4">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="content-khung row">
+                <div class="form-group">
+                    <form class="row g-3 form-horizontal" action="{% url 'createGroup' request.user.id %}" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="name" name="name" placeholder="Group Name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                        </div>
+                      </form>
+                   
+                </div>
+                <hr>
+                <div class="row">
+                    <table class="table table-hover">
+                    
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Num of Member</th>
+                                <th scope="col">Num of Project</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                      
+                        <tbody >
+                       
+                            {% for gr in gr %}
+                            <tr>
+                                <td> {{gr.id}}</td>
+                                <td>
+                                    <a  href="#" >{{gr.name}}</a>
+                                </td>
+                                <td>{{gr.numMember}}</td>
+                                <td>{{gr.numProject}}</td>
+                                <td>
+                                    <a type="submit" class="fa fa-pen" 
+                                        href="#" > </a>
+                                </td>
+                                <td>
+                                    <a type="submit" class="fa fa-trash"
+                                        href="{% url 'deleteGroup' gr.id %}" > </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                            
+                    </table>
+                </div>
+                <!-- BEGIN: group1 -->
+               
+                <!-- END: group1 -->
+                
+               
+
+            </div>
+        </div>                   
+
+           
+            
+    </div>
+{% endblock %}
+

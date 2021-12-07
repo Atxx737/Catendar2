@@ -14,7 +14,7 @@
 
 
 {% block title-frame %}
-    Update task ฅ^•ﻌ•^ฅ
+    (ꏿ ᆺ ꏿ)??
 {% endblock %}
 
 {% block thongtin %}
@@ -23,22 +23,27 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="content-khung row">
                 <!-- BEGIN: group1 -->
-                
                <div class="mb-3" style="margin-top: 30px;">
-                    <form action="." method="POST" >
-                        {% csrf_token %}
-                            {{form_updateTask.as_p}}
-                        
-                        <input type="submit" class="btn btn-primary " value="Update" />
-                        <a href="{% url 'home' user.id %}" class="btn btn-outline-secondary ">Cancel</a>
-                    </form>
+                <form action="{% url 'deleteGroup' grDelete.id %}" method="POST" >
+                {% csrf_token %}
+                  
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"> Delete </legend>
+                        <h2>Are you sure you want to delete the task: <strong>{{grDelete.name}}</strong>  </h2>
+                    </fieldset>
                     
+                        
+                    <div class=" form-group">
+                        <input type="submit" class="btn btn-outline-danger " value="Yes, delete" />
+                        <a href="{% url 'group' request.user.id %}" class="btn btn-outline-secondary ">Back</a>
+                    
+                        
+                    </div>
+                </form>
+
                </div>
-               
+                
                 <!-- END: group1 -->
-                <center>
-                    <img src="{% static 'images/meobeo.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 5px;">
-                </center>
 
             </div>
         </div>                   

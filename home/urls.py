@@ -9,10 +9,14 @@ urlpatterns = [
    path('<int:user_id>/', views.home_view, name='home'),
    path('signup/', views.register_view, name='signup'),
    path('focus-study/',views.pomodoro_view,name='pomodoro'), 
-   path('group/', views.group_view, name='group'),
    
    path('profile/<str:username>/', views.profile_view, name='profile'),
    path('edit-profile/<str:username>/', views.editProfile, name='edit-profile'),
+   path('create-profile/<str:username>/', views.createProfile, name='create-profile'),
+   
+   path('group/<int:user_id>/', views.group_view, name='group'),
+   path('create-group/<int:user_id>/', views.createGroup, name='createGroup'),
+   path('delete-group/<int:group_id>/', views.deleteGroup, name='deleteGroup'),
    
    path('createproject/<str:username>/', views.createProject_view, name='createProject'),
    path('update/<int:id>/', views.updateProject, name='update'),
@@ -21,6 +25,7 @@ urlpatterns = [
 
    path('create-task/<int:project_id>/', views.createTask, name='createTask'),
    path('update-task/<int:task_id>/', views.updateTask, name='updateTask'),
+   path('delete-task/<int:id>/', views.deleteTask, name='deleteTask'),
 
    # path( 'login/',auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
    path( 'login/',views.login_view, name='login'),

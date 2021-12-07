@@ -27,7 +27,6 @@
                <div class="mb-3" style="margin-top: 30px;">
                 <form action="." method="POST" >
                     {% csrf_token %}
-                        <!-- {{form_prj.as_p}} -->
                         <div  class="row g-3" >
                             <div class="col-md-12">
                                 <label  class="form-label ">Project</label>
@@ -41,12 +40,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="inputFirstname4" class="form-label">Group</label>
-                                <select name="" id="">
-                                    <option selected disabled="true">Groups</option>
-                                    {% for select in groupChoice%}
-                                    <option>{{{select.name}}</option>
-                                    {% endfor%}
-                                </select>
+                                
                                 {{form_prj.group}}
 
                             </div>

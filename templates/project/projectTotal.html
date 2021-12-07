@@ -48,8 +48,35 @@
         </div>
     </div>
 {% endfor %}
- 
 
+<div class="pagination"  style="justify-content: flex-end;">
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if ProjectTotal.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ProjectTotal.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+          {% endif %}
 
-
+            <li class="page-item disabled"><a class="page-link" href="#">{{ProjectTotal.number}}</a></li>
+            
+          {% if ProjectTotal.has_next  %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ProjectTotal.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ProjectTotal.paginator.num_pages}}">Last</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
 

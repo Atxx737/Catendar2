@@ -38,22 +38,21 @@ class RegistrationForm(forms.Form):
 
     def save(self):
         User.objects.create_user(username=self.cleaned_data['username'], email= self.cleaned_data['email'], password=self.cleaned_data['password1'])
-
-
 ######################################################
 
-class createProjectForm(ModelForm):
+class createProjectForm(forms.ModelForm):
     class Meta: 
         model= Project
         fields=('name_project','decription','group','deadline')
         
         widgets={
-            'name_project':forms.TextInput(attrs={ 'style': 'width: 70%;','class': 'form-control'}),
-            'decription': forms.TextInput(attrs={ 'style': 'width: 70%;','class': 'form-control'}),
-            'group': forms.TextInput(attrs={ 'style': 'width: 70%;','class': 'form-control'}),
-            'deadline': forms.NumberInput(attrs={ 'type':'date','style': 'width: 70%;','class': 'form-control'}),
+            'name_project':forms.TextInput(attrs={'class': 'form-control' }),
+            'decription': forms.TextInput(attrs={ 'class': 'form-control'}),
+            # 'group': forms.TextInput(attrs={ }),
+            'deadline': forms.NumberInput(attrs={ 'type':'date','class': 'form-control'}),
         }
 ######################################################
+
 class updateProjectForm(forms.ModelForm):
     class  Meta:
         model = Project
@@ -68,8 +67,8 @@ class updateProjectForm(forms.ModelForm):
             'deadline': forms.NumberInput(attrs={ 'type':'date','style': 'width: 70%;','class': 'form-control'}),
             'status': forms.Select(attrs={ 'style': 'width: 70%;','class': 'form-control'},choices=CHOICES),
         }
-
 ######################################################
+
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model= User
@@ -78,6 +77,7 @@ class UserUpdateForm(forms.ModelForm):
             'username':forms.TextInput(attrs={ 'style': 'width: 70%;','class': 'form-control'}),
         }
 ######################################################
+
 class editProfileForm(forms.ModelForm):
     
     class  Meta:
@@ -96,14 +96,15 @@ class editProfileForm(forms.ModelForm):
             'bio': forms.TextInput(attrs={ 'style': 'width: 70%;','class': 'form-control'}),
             'avatar':forms.FileInput(attrs={'class': 'form-control-file'}),
         }
-        
 ######################################################
+
 class createTaskForm(forms.ModelForm):
     class Meta:
         model= Task
         fields=('project','task','decription','deadline')
+        read_only_fields=('project')
         widgets={
-            'project':forms.TextInput(attrs={ 'class': 'form-control', 'style':'readonly'}),
+            'project':forms.TextInput(attrs={ 'class': 'form-control','id':'disabledTextInput'}),
             'task': forms.TextInput(attrs={ 'class': 'form-control'}),
             'decription': forms.TextInput(attrs={ 'class': 'form-control'}),
             'deadline': forms.NumberInput(attrs={ 'type':'date','class': 'form-control '}),
@@ -114,6 +115,7 @@ class updateTaskForm(forms.ModelForm):
     class  Meta:
         model = Task
         fields=('task','decription','deadline','status')
+        
         CHOICES=(
         ('1','Complete'),
         ('0','Incomplete ')
@@ -124,4 +126,4 @@ class updateTaskForm(forms.ModelForm):
             'deadline': forms.NumberInput(attrs={ 'type':'date','class': 'form-control'}),
             'status': forms.Select(attrs={ 'class': 'form-control'},choices=CHOICES),
         }
-    
+######################################################

@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block title %}
-    Catendar nhưng chưa tuyển mèo
+    Catendar đang tuyển mèo
 {% endblock %}
 
 
 
 
 {% block title-frame %}
-    Add project ฅ^•ﻌ•^ฅ
+    (ꏿ ᆺ ꏿ)??
 {% endblock %}
 
 {% block thongtin %}
@@ -23,21 +23,27 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="content-khung row">
                 <!-- BEGIN: group1 -->
-                
                <div class="mb-3" style="margin-top: 30px;">
-                <form action="." method="POST" >
-                    {% csrf_token %}
-                        {{form.as_p}}
-                    <!-- style form -->
+                <form action="{% url 'deleteTask' tskDelete.id %}" method="POST" >
+                {% csrf_token %}
+                  
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"> Delete </legend>
+                        <h2>Are you sure you want to delete the task: <strong>{{tskDelete.task}}</strong>  </h2>
+                    </fieldset>
                     
-                    <!-- end -->
-                    <input type="submit" class="btn btn-primary " value="Add" />
+                        
+                    <div class=" form-group">
+                        <input type="submit" class="btn btn-outline-danger " value="Yes, delete" />
+                        <a href="{% url 'detail' tskDelete.project.id %}" class="btn btn-outline-secondary ">Back</a>
+                    
+                        
+                    </div>
                 </form>
 
                </div>
                 
                 <!-- END: group1 -->
-                
 
             </div>
         </div>                   

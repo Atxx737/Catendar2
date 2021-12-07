@@ -1,8 +1,9 @@
 {% load static %}
 
+
 {% for project in Project %}
     
-    <div class="col-12 col-lg-4  my-3 rounded-3 ">
+    <div class="col-12 col-lg-4  my-3 rounded-3 overflow-hidden">
         <div class="container-fluid py-4 bg-pink border">
             <div class="d-flex w-100 justify-content-between">
                 <span class="d-inline ">
@@ -33,7 +34,9 @@
                 <div class="progress-bar bg-pinkload" role="progressbar" style="width:34%"
                     aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="w-100 text-end fw-bolder">{{project.numtaskDone}}%</div>
+            <input class="nu-task " hidden  value={{project.Nu_task}}>
+            <input class="nu-taskdone " hidden  value={{project.Nu_taskDone}}>
+            <div class="w-100 text-end fw-bolder task-percent"> %</div>
             <div class="row text-center">
                 <div class="col-2 pe-0">
                     <div class="img-wrap" style="width: 40px;">
@@ -41,22 +44,50 @@
                             <a href="{% url 'profile' user.username %}"></a>
                         </div>
                     </div>
-                    <!-- <img src="{% static 'images/avt.png' %}" class="w-100" alt=""> -->
                 </div>
                 <div class="col-1">
-                    
                     <i class="fa fa-plus mt-2"></i>
                 </div>
                 <div class="col-5"></div> 
                 <div class="col-4 bg-light overflow-hidden mt-1 frame-rounded  d-flex align-items-center justify-content-center" >
-                    <p class="bg-light text-center rounded-3 overflow-hidden m-0 ">3 days left</p>
+                    <p class="bg-light text-center rounded-3 overflow-hidden m-0 ">{{project.DayLeft}}</p>
                 </div>
             </div>
         </div>
     </div>
 {% endfor %}
  
+<!-- BEGIN:Pagination -->
+<div class="pagination" style="justify-content: flex-end;">
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if Project.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{Project.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+          {% endif %}
 
+            <li class="page-item disabled"><a class="page-link" href="#">{{Project.number}}</a></li>
+            
+          {% if Project.has_next  %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{Project.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{Project.paginator.num_pages}}">Last</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
 
-
+<!-- END:Pagination -->
 

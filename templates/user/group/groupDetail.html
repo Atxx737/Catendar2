@@ -25,7 +25,7 @@ Catendar - Home
             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
                 type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Task</button>
             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" 
-                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Member</button>
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">User</button>
         </div>
         
     </nav>
@@ -64,8 +64,8 @@ Catendar - Home
                                     <label for="formGroupExampleInput" class="form-label h5">Status:</label>
                                     <p  class="form-control" id="formGroupExampleInput" > {{project.status}}</p>
                                 </div>
-                                <a type="submit" class="btn btn-outline-primary"
-                                     href="{% url 'update' project.id %}" > Edit</a>
+                                <a type="submit" style="transform: translateX(900%) !important;" 
+                                    class="btn btn-outline-primary" href="{% url 'update' project.id %}" > Edit</a>
 
                             </div>
                         </div>
