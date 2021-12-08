@@ -84,7 +84,7 @@ class Project(ItemBase):
         Nu_task= Task.objects.filter(project=self.id).count()
         return Nu_task
     def Nu_taskDone(self):
-        Nu_taskDone=Task.objects.filter(project=self.id).filter(status='Incomplete').count()
+        Nu_taskDone=Task.objects.filter(project=self.id).filter(status='Complete').count()
         return Nu_taskDone
     def DayLeft(self):
         prj=Project.objects.get(id=self.id)

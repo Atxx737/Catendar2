@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 
 def home_view(request, user_id):
     gr= Group.objects.filter(user=user_id)
-    q_project= Project.objects.filter(group__in=gr).filter(status="Incomplete")
+    q_project= Project.objects.filter(group__in=gr).filter(status="Incomplete").order_by('-deadline')
     q_prjDone= Project.objects.filter(group__in=gr).filter(status="Complete")
     q_prjTotal= Project.objects.filter(group__in=gr).order_by('deadline')
     #set up pagination
@@ -152,12 +152,18 @@ def detailProject(request,project_id):
     prj= Project.objects.get(id=project_id)
     task_obj= Task.objects.filter(project=prj.id)
     gr= Group.objects.get(name=prj.group)
-    user=User.objects.filter(groups=gr)
-    
+    member=[]
+    for i in User.objects.filter(groups__name=gr.name):
+        member.append(i.username)
+        
+    #set up pagination
+    p_task= Paginator(task_obj,4)
+    page_task= request.GET.get('page')
+    task=p_task.get_page(page_task)
     context={
         'project':prj,
-        'task':task_obj,
-        'user':user,
+        'task':task,
+        'member':member,
     }
     return render(request,'project/projectDetail.html',context)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -233,19 +239,33 @@ def deleteGroup(request,group_id):
     }
     return render(request,'user/group/deleteGroup.html',context)
 
+def addUser_toGroup(request, group_id):
+    if request.method=='POST':
+        userName=request.POST.get('userName')
+        g = Group.objects.get(id=group_id)
+        users = User.objects.get(username=userName)
+        # g.user_set.add(users)
+        users.groups.add(g)
+    return redirect('detailGroup',group_id)
+
+def detailGroup(request,group_id):
+    gr= Group.objects.get(id=group_id)
+    member=[]
+    for i in User.objects.filter(groups__name=gr.name):
+        member.append(i.username)
+    project=[]
+    for i in Project.objects.filter(group__name=gr.name):
+        project.append(i.name_project)
+        
+    user= User.objects.all()
+    context={
+        'gr':gr,
+        'member':member,
+        'project':project,
+        'group_id':group_id,
+        'user':user,
+    }
+    return render(request,'user/group/groupDetail.html',context)
+    
 # ######################################
 
-
-
-def addUser(request):
-    g = Group.objects.get(name='My Group Name')
-    users = User.objects.all()
-    g.user_set.add(users)
-    return 
-def see_users(request):
-
-  user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-  users = (user for user in  user_status)
-  context = {'online_users':online_users}
-  return render(request,'template.html',context)
-  
