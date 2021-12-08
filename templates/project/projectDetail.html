@@ -39,14 +39,16 @@ Catendar - Home
                 <div class="container">
                     <div class="row py-4">
                         <!-- BEGIN: Chart -->
-                        <div class="col px-5">
-                                <div class="chart-bar">
-                                    
-                                </div>
-                        </div>
+                        <div class="col-sm-12 col-lg-6 d-flex justify-content-center">
+                            <div class="chart-bar" style="width: 70%;">
+                                <canvas id="chart"></canvas>
+                                <input class="nu-task " hidden  value={{project.Nu_task}}>
+                                <input class="nu-taskdone " hidden  value={{project.Nu_taskDone}}>
+                            </div>
+                    </div>
                         <!-- END: Chart -->
 
-                        <div class="col ">
+                        <div  class="col-sm-12 col-lg-6">
                             <div class="content">
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label h5">Name project:</label>
@@ -137,5 +139,5 @@ Catendar - Home
 {% endblock %}
 
 {% block script %}
-
+    <script src="{% static '/js/projectDetail.js'%}"></script>
 {% endblock %}
