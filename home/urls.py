@@ -34,7 +34,7 @@ urlpatterns = [
    path( 'login/',views.login_view, name='login'),
    path('logout/',auth_views.LogoutView.as_view(next_page='login'),name='logout'),
    
-   path('notification/<int:notification_pk>/detail/<int:project_id>',ProjectNotification.as_view(),name='project-notification'),
+   path('noti/<int:notification_id>/detail/<int:project_id>',ProjectNotification.as_view(),name='project-noti'),
    
    
 ]

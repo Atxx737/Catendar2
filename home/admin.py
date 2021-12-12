@@ -21,7 +21,7 @@ class taskAdmin(admin.ModelAdmin):
 
 @admin.register(Notificatiion)
 class notificationAdmin(admin.ModelAdmin):
-    list_display=('notification_type','from_user','to_user')
+    list_display=('id','notification_type','from_user','to_user','user_has_seen')
     list_filter= ('notification_type','from_user','to_user')
     
 admin.site.register(Profile)

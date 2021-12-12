@@ -271,11 +271,12 @@ def detailGroup(request,group_id):
 # ######################################
 
 class ProjectNotification(View):
-    def get(self, request, notificaton_pk, project_id,*args, **kwargs):
-        notificaton = Notificatiion.objects.get(pk=notificaton_pk)
+    def get(self, request, notification_id, project_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
         project= Project.objects.get(id=project_id)
-        notificaton.user_has_been= True
+        
+        notificaton.user_has_seen = True
         notificaton.save()
-        return redirect('detail', id=project_id )
+        return redirect('detail', project_id=project_id )
     
 
