@@ -1,0 +1,77 @@
+<div  class="dropdown ">
+    <i class="  fa fa-bell h-300 fs-4 position-relative " onclick="showNotification()"
+    
+        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{noti.count}}</span>
+        <ul class="dropdown-menu dropdown-menu-lg-end d-none" id="notification-container" aria-labelledby="dropdownMenuButton1" style="min-width: 300px;">
+            {% for noti in noti %}
+            <!-- project -->
+                {% if noti.project %}
+                    {% if noti.notification_type == 1 %}
+                    <li class="dropdown-item-parent dropdown-item ">
+                        <a href="#">@{{noti.from_user}} create a project  </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif noti.notification_type == 2 %} 
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="#">@{{noti.from_user}} update a project  </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif noti.notification_type == 3 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="#">@{{noti.from_user}} delete a project  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% endif%}
+
+            <!-- task -->
+                
+                {% elif noti.task %}
+                    {% if noti.notification_type == 1 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="#">@{{notification.from_user}} create a task  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% elif noti.notification_type == 2 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="#">@{{noti.from_user}} update a task  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% elif noti.notification_type == 3 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="#">@{{noti.from_user}} delete a task  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% endif%}
+            <!-- group -->
+                    {% elif noti.group %}
+                        {% if noti.notification_type == 1 %}
+                        <li class="dropdown-item-parent dropdown-item" >
+                            <a href="#">@{{noti.from_user}} add you into a group  </a>
+                            <span class="dropdown-item-close">&times;</span>
+                        </li>
+                        {% elif noti.notification_type == 2 %}
+                        <li class="dropdown-item-parent dropdown-item">
+                            <a href="#">@{{noti.from_user}} update a group  </a>
+                            <span class="dropdown-item-close">&times;</span>
+                        </li>
+                        {% elif noti.notification_type == 3 %}
+                        <li class="dropdown-item-parent dropdown-item">
+                            <a href="#">@{{noti.from_user}} delete a group  </a>
+                            <span class="dropdown-item-close">&times;</span>
+                        </li>
+                        {% endif%}
+            <!-- group -->
+
+                {% endif%}
+
+            {% endfor%}
+        </ul>
+</div>
+
+<!-- <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
+    <li>
+        <a href="#" class="dropdown-item">Notification()</a>
+    </li>
+    
+</ul> -->

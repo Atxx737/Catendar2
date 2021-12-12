@@ -19,5 +19,9 @@ class taskAdmin(admin.ModelAdmin):
 # class todoAdmin(admin.ModelAdmin):
 #     list_display=('project','task','todo_CHOICES',)
 
+@admin.register(Notificatiion)
+class notificationAdmin(admin.ModelAdmin):
+    list_display=('notification_type','from_user','to_user')
+    list_filter= ('notification_type','from_user','to_user')
+    
 admin.site.register(Profile)
-

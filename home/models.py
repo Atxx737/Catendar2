@@ -7,6 +7,7 @@ from PIL import Image
 from django.urls import reverse
 from django.dispatch import receiver
 from datetime import date
+from django.utils import timezone
 from django.db.models.fields.related import ForeignKey
 from django.db.models.signals import post_save
 
@@ -136,7 +137,14 @@ class MyGroup(Group):
     def numProject(self):
         return Project.objects.filter(group__name=self.name).count()
     
-# class Membership(models.Model):
-#     person = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-#     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
-#     date_joined = models.DateField(auto_now_add=True)
+class Notificatiion(models.Model):
+    # 1= Create, 2= Update, 3= Delete
+    notification_type=models.IntegerField()
+    to_user= models.ForeignKey(User, related_name='notification_to', on_delete=models.CASCADE, null=True)
+    from_user= models.ForeignKey(User, related_name='notification_from', on_delete=models.CASCADE, null=True)
+    project= models.ForeignKey('Project',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    task= models.ForeignKey('Task',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    group= models.ForeignKey('MyGroup',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    date=models.DateTimeField(default=timezone.now)
+    user_has_seen= models.BooleanField(default=False)
+    

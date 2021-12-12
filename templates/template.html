@@ -29,6 +29,7 @@
 
 <body >
     <!-- BEGIN: navbar -->
+    {% load custom_tags %}
 
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid px-5">
@@ -48,22 +49,17 @@
                         </form>
                     </li> -->
                 </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
-                    
-                    {% if request.user.is_authenticated %}
 
-                    <li class="nav-item ms-2 text-center icon-img">
-                        <i class="fa fa-bell h-100 mt-2 fs-4"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
-                            <li>
-                                <a href="#" class="dropdown-item">Notification({{notifications.count}})</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    {% endif %}
+                <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
 
                     {% if user.profile.id %}
+                     <!-- BEGIN: notifications -->
+
+                    <li class="nav-item ms-2 text-center icon-img">
+                        {% show_notifications %}
+                        
+                    </li>
+                    <!-- END: notifications -->
                     <li class="nav-item ms-2 avata" >
                         <div class="header-img-wrap"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="img" style="background-image:url({{user.profile.avatar.url}})">
@@ -72,7 +68,7 @@
                         
                         <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
                             <li>
-                                <a href="{% url 'profile' request.user.username %}" class="dropdown-item">Profile</a>
+                                <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
                             </li>
                             <li>
                                 <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
@@ -121,9 +117,10 @@
             </div>
         </div>
     </div>
+    <!--END: nav-bar-side  -->
+
     <section class="container-fluid mt-4 overflow-hidden " >
         <div class="row ms-5 ps-3">
-            <!--END: nav-bar-side  -->
             <!--BEGIN: frame-container  -->
             <div class="col-12 col-lg-9 rounded-3  ">
                 <div class="container-fluid bg-white rounded shadow overflow-hidden" style="height: 90vh;">
@@ -224,6 +221,7 @@
 
     {% endblock %}
 
+
     <script src="{% static 'js/wow.min.js'%}"></script>
     <!-- <script src="{% static 'js/bootstrap.js'%}"></script> -->
     <script>
@@ -235,6 +233,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
     <script src="{% static 'js/calendar.js' %}"></script>
+    <script src="{% static 'js/notification.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>

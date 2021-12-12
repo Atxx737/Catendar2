@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 import online_users.models
 from datetime import timedelta
 from django.core.paginator import Paginator
+from django.views import View
 # ######################################
 
 def home_view(request, user_id):
@@ -150,7 +151,7 @@ def deleteProject(request, id):
     
 def detailProject(request,project_id):
     prj= Project.objects.get(id=project_id)
-    task_obj= Task.objects.filter(project=prj.id)
+    task_obj= Task.objects.filter(project=prj.id).order_by('deadline').order_by('-status')
     gr= Group.objects.get(name=prj.group)
     member=[]
     for i in User.objects.filter(groups__name=gr.name):
@@ -268,4 +269,13 @@ def detailGroup(request,group_id):
     return render(request,'user/group/groupDetail.html',context)
     
 # ######################################
+
+class ProjectNotification(View):
+    def get(self, request, notificaton_pk, project_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(pk=notificaton_pk)
+        project= Project.objects.get(id=project_id)
+        notificaton.user_has_been= True
+        notificaton.save()
+        return redirect('detail', id=project_id )
+    
 
