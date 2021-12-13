@@ -31,7 +31,7 @@
     <!-- BEGIN: navbar -->
     {% load custom_tags %}
 
-    <nav class="navbar navbar-expand-lg navbar-light ">
+    <nav class="navbar navbar-expand-lg navbar-light " >
         <div class="container-fluid px-5">
             <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -60,8 +60,8 @@
                         
                     </li>
                     <!-- END: notifications -->
-                    <li class="nav-item ms-2 avata" >
-                        <div class="header-img-wrap"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item ms-2 avata " >
+                        <div class="header-img-wrap"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false" >
                             <div class="img" style="background-image:url({{user.profile.avatar.url}})">
                             </div>
                         </div>
@@ -96,7 +96,7 @@
 
     <!-- BEGIN: content -->
     <!--BEGIN: nav-bar-side  -->
-    <div class="position-fixed bg-white px-3 mt-4 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh">
+    <div class="position-fixed bg-white px-3 mt-2 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh">
         <div class="text-center py-5">
             <div class="my-auto">
                 <div class="icon">
@@ -119,12 +119,12 @@
     </div>
     <!--END: nav-bar-side  -->
 
-    <section class="container-fluid mt-4 overflow-hidden " >
-        <div class="row ms-5 ps-3">
+    <section class="container-fluid mt-2 overflow-hidden "  >
+        <div class="row ms-5 ps-3" >
             <!--BEGIN: frame-container  -->
-            <div class="col-12 col-lg-9 rounded-3  ">
-                <div class="container-fluid bg-white rounded shadow overflow-hidden" style="height: 90vh;">
-                    <div class="d-flex w-100 justify-content-between pt-3">
+            <div class="col-12 col-lg-9 rounded-3  " >
+                <div class="container-fluid bg-white shadow overflow-hidden" style="border-radius: 12px; min-height: 80vh">
+                    <div class="d-flex w-100 justify-content-between pt-3" >
                         <h2 class="d-inline ">
                             {% block title-frame %}
 
@@ -184,25 +184,12 @@
                 </div>
                 <!-- END: calendar -->
 
-                <!-- BEGIN: online -->
+                <!-- BEGIN: online anh meo -->
                 <div class="w-100 mt-3 ">
                     <div class="container-fluid px-1">
                         <div class="ms-0 container py-3 rounded-3 overflow-hidden shadow"
                             style="background-color: #fff; font-size: 1.5rem;">
-                            <h2>Partners</h2>
-                            <!-- BEGIN:onl -->
-                            {% for user in online_users %}
-                            <div class="d-flex text-success"><span><i
-                                class="fa fa-fish mr-3 text-success mx-2"></i></span>{{user.user}}
-                            </div>
-                            {% endfor %}
-                            
-                            <div class="d-flex text-success"><span><i
-                                        class="fa fa-fish mr-3 text-success mx-2"></i></span>{{request.user.username}}</div>
-                            <!-- END:onl -->
-                            <div class="d-flex text-secondary"><span><i class="fa fa-fish mr-3 mx-2"></i></span>Tustal
-                            </div>
-                            <div class="d-flex text-secondary"><span><i class="fa fa-fish mr-3 mx-2"></i></span>NKD
+                            <div class="img" style="background-image:url(https://yt3.ggpht.com/ROi_4aiDO-aftJVOHqHiGoEeCnxuvwLoIi8jPnGoqJ2_nGBQD8o4c2y9sGOQXX0B1Egvvqd5=s900-c-k-c0x00ffffff-no-rj)">
                             </div>
                         </div>
                     </div>

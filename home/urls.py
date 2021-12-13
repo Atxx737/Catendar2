@@ -4,7 +4,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import ProjectNotification
+from .views import ProjectNotification, DeleteNotification
 
 urlpatterns = [
    path('<int:user_id>/', views.home_view, name='home'),
@@ -35,6 +35,7 @@ urlpatterns = [
    path('logout/',auth_views.LogoutView.as_view(next_page='login'),name='logout'),
    
    path('noti/<int:notification_id>/detail/<int:project_id>',ProjectNotification.as_view(),name='project-noti'),
+   path('noti/<int:notification_id>/home/<int:user_id>',DeleteNotification.as_view(),name='delete-noti'),
    
    
 ]

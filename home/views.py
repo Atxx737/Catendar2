@@ -137,6 +137,13 @@ def updateProject(request,id):
         if form.is_valid():
             form.save()
             return redirect('home',request.user.id)
+    gr= Group.objects.get(name=project.group)
+    urs= User.objects.filter(groups__name=gr.name)
+    for item in urs:
+        if item != request.user:
+            
+            notification= Notificatiion.objects.create(notification_type=2,from_user= request.user, to_user=item,project=project)
+    
     context={'form':form}
     return render(request,'project/projectUpdate.html',context)
 
@@ -145,7 +152,13 @@ def deleteProject(request, id):
     if request.method=='POST':
         project.delete()
         return redirect('home',request.user.id)
-        
+    gr= Group.objects.get(name=project.group)
+    urs= User.objects.filter(groups__name=gr.name)
+    for item in urs:
+        if item != request.user:
+            
+            notification= Notificatiion.objects.create(notification_type=3,from_user= request.user, to_user=item,project=project)
+    
     context={'project':project}
     return render(request,'project/confirm-delete.html',context)
     
@@ -181,7 +194,7 @@ def createTask(request,project_id):
             return redirect('detail',project_id=prj.id)
         else:
             messages.error(request, "Error create task")
-        
+    
     context={
         'formTask':formTask,
     }
@@ -196,7 +209,12 @@ def updateTask(request,task_id):
         if form_updateTask.is_valid():
             form_updateTask.save()
             return redirect('detail',prj.id)
-        
+    gr= Group.objects.get(name=prj.group)
+    urs= User.objects.filter(groups__name=gr.name)
+    for item in urs:
+        if item != request.user:
+            notification= Notificatiion.objects.create(notification_type=2,from_user=request.user, to_user=item,task=tsk)
+    
     context={
         'form_updateTask':form_updateTask,
     }
@@ -205,6 +223,13 @@ def updateTask(request,task_id):
 def deleteTask(request, id):
     tskDelete=Task.objects.get(id=id)
     if request.method=='POST':
+        prj= Project.objects.get(task=tskDelete)
+        gr= Group.objects.get(name=prj.group)
+        urs= User.objects.filter(groups__name=gr.name)
+        for item in urs:
+            if item != request.user:
+                notification= Notificatiion.objects.create(notification_type=3,from_user=request.user, to_user=item,task=tskDelete)
+                print(notification)
         tskDelete.delete()
         return redirect('home',request.user.id)
     
@@ -278,5 +303,12 @@ class ProjectNotification(View):
         notificaton.user_has_seen = True
         notificaton.save()
         return redirect('detail', project_id=project_id )
-    
 
+
+class DeleteNotification(View):
+    def get(self, request, notification_id,user_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
+        
+        notificaton.user_has_seen = True
+        notificaton.save()
+        return redirect('home',user_id )

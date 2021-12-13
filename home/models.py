@@ -90,14 +90,8 @@ class Project(ItemBase):
     def DayLeft(self):
         prj=Project.objects.get(id=self.id)
         dl= prj.deadline
-        print('dl:',dl)
-        
         day_now= date.today()
-        print('day_now:',day_now)
-        
         daysLeft= (dl - day_now).days
-        print('daysLeft:',daysLeft)
-        
         s=''
         if (daysLeft) > 1:
             s= str(daysLeft) + ' days left'

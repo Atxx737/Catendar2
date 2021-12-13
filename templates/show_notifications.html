@@ -1,5 +1,5 @@
 <div  class="dropdown ">
-    <i class="  fa fa-bell h-300 fs-4 position-relative " onclick="showNotification()"
+    <i class=" fa fa-bell h-300 fs-2 position-relative " onclick="showNotification()"
     
         data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{notification.count}}</span>
@@ -7,22 +7,17 @@
             {% for notification in notification %}
             <!-- project -->
                 {% if notification.project %}
-                    {% if notification.notification_type == 1 %}
-                    <li class="dropdown-item-parent dropdown-item ">
-                        <a href="{% url 'project-noti' notification.id notification.project.id %}">
-                            @{{notification.from_user}} create a project  </a>
-                        <p class="dropdown-item-close">&times;</p>
-                    </li>
-                    {% elif notification.notification_type == 2 %} 
+                    
+                    {% if notification.notification_type == 2 %} 
                     <li class="dropdown-item-parent dropdown-item">
                         <a href="{% url 'project-noti' notification.id notification.project.id %}">
-                            @{{notification.from_user}} update a project  </a>
+                            <strong>@{{notification.from_user}}</strong> update a project <strong>{{notification.project}}</strong> </a>
                         <p class="dropdown-item-close">&times;</p>
                     </li>
                     {% elif notification.notification_type == 3 %}
                     <li class="dropdown-item-parent dropdown-item">
-                        <a href="{% url 'project-noti' notification.id notification.project.id %}">
-                            @{{notification.from_user}} delete a project  </a>
+                        <a href="{% url 'delete-noti' notification.id  notification.to_user.id %}">
+                            <strong>@{{notification.from_user}}</strong> delete a project <strong>{{notification.project}}</strong>  </a>
                         <span class="dropdown-item-close">&times;</span>
                     </li>
                     {% endif%}
@@ -32,38 +27,28 @@
                 {% elif notification.task %}
                     {% if notification.notification_type == 1 %}
                     <li class="dropdown-item-parent dropdown-item">
-                        <a href="#">@{{notification.from_user}} create a task  </a>
-                        <span class="dropdown-item-close">&times;</span>
+                        <a href="{% url 'project-noti' notification.id notification.project.id %}">
+                            <strong>@{{notification.from_user}}</strong> add a task <strong>{{notification.task}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
                     </li>
-                    {% elif notification.notification_type == 2 %}
+                    {% elif notification.notification_type == 2 %} 
                     <li class="dropdown-item-parent dropdown-item">
-                        <a href="#">@{{notification.from_user}} update a task  </a>
-                        <span class="dropdown-item-close">&times;</span>
+                        <a href="{% url 'project-noti' notification.id notification.task.project.id %}">
+                            <strong>@{{notification.from_user}}</strong> update a task <strong>{{notification.task}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
                     </li>
                     {% elif notification.notification_type == 3 %}
                     <li class="dropdown-item-parent dropdown-item">
-                        <a href="#">@{{notification.from_user}} delete a task  </a>
+                        <a href="{% url 'delete-noti' notification.id  notification.to_user.id %}">
+                            <strong>@{{notification.from_user}}</strong> delete a task <strong>{{notification.task}}</strong>  </a>
                         <span class="dropdown-item-close">&times;</span>
                     </li>
                     {% endif%}
             <!-- group -->
-                    {% elif notification.group %}
-                        {% if notification.notification_type == 1 %}
-                        <li class="dropdown-item-parent dropdown-item" >
-                            <a href="#">@{{notification.from_user}} add you into a group  </a>
-                            <span class="dropdown-item-close">&times;</span>
-                        </li>
-                        {% elif notification.notification_type == 2 %}
-                        <li class="dropdown-item-parent dropdown-item">
-                            <a href="#">@{{notification.from_user}} update a group  </a>
-                            <span class="dropdown-item-close">&times;</span>
-                        </li>
-                        {% elif notification.notification_type == 3 %}
-                        <li class="dropdown-item-parent dropdown-item">
-                            <a href="#">@{{notification.from_user}} delete a group  </a>
-                            <span class="dropdown-item-close">&times;</span>
-                        </li>
-                        {% endif%}
+                {% elif notification.group %}
+                    {% if notification.notification_type == 1 %}
+                    
+                    {% endif%}
             <!-- group -->
 
                 {% endif%}
