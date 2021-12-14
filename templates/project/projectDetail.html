@@ -159,7 +159,7 @@ Catendar - Home
                 </nav>
             </div>
 
-<!-- END:Pagination -->
+                <!-- END:Pagination -->
 
             </div>
             
@@ -175,7 +175,10 @@ Catendar - Home
                         <div class="member-in-group"> 
                             <ul class="list-group list-group-flush">
                                 {% for item in member %}
-                                <li class="list-group-item">{{item}}</li>
+
+                                <li class="list-group-item">
+                                    <a href="{% url 'profile' item %}">{{item}}</a>
+                                </li>
                                 {% endfor%}
                                 
                               </ul>

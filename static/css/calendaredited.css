@@ -27,7 +27,7 @@
 }
 
 .calendar-week-day {
-  height: 30px;
+  height: 40px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   font-weight: 500;
@@ -48,7 +48,7 @@
 
 .calendar-days div {
   width: 30px;
-  height: 30px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;

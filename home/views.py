@@ -150,15 +150,13 @@ def updateProject(request,id):
 def deleteProject(request, id):
     project= Project.objects.get(id=id)
     if request.method=='POST':
+        gr= Group.objects.get(name=project.group)
+        urs= User.objects.filter(groups__name=gr.name)
+        notification= Notificatiion.objects.create(notification_type=3,from_user=request.user, to_user=request.user,project=project)
+        print(notification)
         project.delete()
         return redirect('home',request.user.id)
-    gr= Group.objects.get(name=project.group)
-    urs= User.objects.filter(groups__name=gr.name)
-    for item in urs:
-        if item != request.user:
-            
-            notification= Notificatiion.objects.create(notification_type=3,from_user= request.user, to_user=item,project=project)
-    
+   
     context={'project':project}
     return render(request,'project/confirm-delete.html',context)
     

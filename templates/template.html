@@ -19,6 +19,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{% static 'css/calendaredited.css' %}">
+    <link rel="stylesheet" href="{% static '/css/home.css'%}">
+
     {% block linkcss %}
 
     {% endblock %}
@@ -32,13 +34,12 @@
     {% load custom_tags %}
 
     <nav class="navbar navbar-expand-lg navbar-light " >
-        <div class="container-fluid px-5">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="{% static 'images/catendar.png' %}" class="" style="width: 150px;" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
             <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <img src="{% static 'images/catendar.png' %}" class="" style="width: 150px;" alt="">
-                    </li>
-                </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- <li class="nav-item" style="width: 850px;">
                         <form class="input-group">
@@ -50,7 +51,7 @@
                     </li> -->
                 </ul>
 
-                <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
+                <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-content-end mt-3 mt-lg-0">
 
                     {% if user.profile.id %}
                      <!-- BEGIN: notifications -->
@@ -96,7 +97,7 @@
 
     <!-- BEGIN: content -->
     <!--BEGIN: nav-bar-side  -->
-    <div class="position-fixed bg-white px-3 mt-2 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh">
+    <div class="position-fixed bg-white px-3 mt-2 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh;">
         <div class="text-center py-5">
             <div class="my-auto">
                 <div class="icon">
@@ -112,14 +113,15 @@
             <div class="icon">
                 <a href="{% url 'pomodoro' %}" class="fa fa-cat my-4"></a>
             </div>
-            <div class="icon">
-                <a href="{% url 'group' request.user.id%}" class="fa fa-users"></a>
+            <div class="icon" >
+                <a href="{% url 'group' request.user.id%}" class="fa fa-users my-4"></a>
             </div>
         </div>
     </div>
     <!--END: nav-bar-side  -->
 
-    <section class="container-fluid mt-2 overflow-hidden "  >
+    <section class="container-fluid overflow-hidden "  >
+        <div class="mt-5 pt-4"></div>
         <div class="row ms-5 ps-3" >
             <!--BEGIN: frame-container  -->
             <div class="col-12 col-lg-9 rounded-3  " >
