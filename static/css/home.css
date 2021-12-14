@@ -5,6 +5,10 @@ body {
   background-color: rgb(246, 247, 252);
   font-family: "Overpass", sans-serif;
 }
+li
+{
+  list-style-type: none;
+}
 .menubar-img {
   width: 30px;
   /* height: 50px; */

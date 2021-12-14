@@ -1,9 +1,9 @@
-<div  class="dropdown ">
+<div  class="d-flex align-items-center dropdown ">
     <i class=" fa fa-bell h-300 fs-3 position-relative " onclick="showNotification()"
     
         data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{notification.count}}</span>
-        <ul class="dropdown-menu dropdown-menu-lg-end d-none" id="notification-container" aria-labelledby="dropdownMenuButton1" style="min-width: 300px;">
+        <ul class="dropdown-menu dropdown-menu-lg-end d-none" id="notification-container" aria-labelledby="dropdownMenuButton1" style="right: 0;left:unset ;min-width: 300px;">
             {% for notification in notification %}
             <!-- project -->
                 {% if notification.project %}
