@@ -270,6 +270,10 @@ def addUser_toGroup(request, group_id):
         users = User.objects.get(username=userName)
         # g.user_set.add(users)
         users.groups.add(g)
+        urs= User.objects.get(username=userName)
+ 
+        notification= Notificatiion.objects.create(notification_type=1,from_user= request.user, to_user=urs,group=g)
+    
     return redirect('detailGroup',group_id)
 
 def detailGroup(request,group_id):
@@ -310,3 +314,12 @@ class DeleteNotification(View):
         notificaton.user_has_seen = True
         notificaton.save()
         return redirect('home',user_id )
+
+class GroupNotification(View):
+    def get(self, request, notification_id, group_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
+        group= Group.objects.get(id=group_id)
+        
+        notificaton.user_has_seen = True
+        notificaton.save()
+        return redirect('detailGroup', group_id=group_id )

@@ -22,7 +22,7 @@
 }
 
 .calendar-body {
-  padding: 2px;
+  padding: 1px;
 
 }
 
@@ -72,7 +72,7 @@
 .calendar-days div.curr-date:hover {
   background-color: var(--light-hover);
   color: var(--white);
-  border-radius: 50%;
+  border-radius: 20%;
 }
 
 .calendar-days div.curr-date span {
@@ -114,7 +114,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #FFF1AF;
+  background-color: #F0E4D7;
   padding: 20px;
   grid-template-columns: repeat(3, auto);
   gap: 5px;

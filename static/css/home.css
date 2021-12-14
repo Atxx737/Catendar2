@@ -34,6 +34,8 @@ li
   --font: "Poppins", sans-serif;
   --gradient: linear-gradient(40deg, #ff6ec4, #7873f5);
   --shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  --light-hover: rgba(255, 175, 175, 0.925);
+  --color-hover: rgba(230, 180, 241, 0.911);
 }
 * {
   box-sizing: border-box;

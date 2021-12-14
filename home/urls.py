@@ -4,7 +4,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import ProjectNotification, DeleteNotification
+from .views import ProjectNotification, DeleteNotification,GroupNotification
 
 urlpatterns = [
    path('<int:user_id>/', views.home_view, name='home'),
@@ -36,6 +36,7 @@ urlpatterns = [
    
    path('noti/<int:notification_id>/detail/<int:project_id>',ProjectNotification.as_view(),name='project-noti'),
    path('noti/<int:notification_id>/home/<int:user_id>',DeleteNotification.as_view(),name='delete-noti'),
+   path('noti/<int:notification_id>/detail-group/<int:group_id>',GroupNotification.as_view(),name='group-noti'),
    
    
 ]
