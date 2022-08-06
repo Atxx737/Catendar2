@@ -9,11 +9,12 @@ from django.contrib.auth import authenticate, login
 import online_users.models
 from datetime import timedelta
 from django.core.paginator import Paginator
+from django.views import View
 # ######################################
 
 def home_view(request, user_id):
     gr= Group.objects.filter(user=user_id)
-    q_project= Project.objects.filter(group__in=gr).filter(status="Incomplete")
+    q_project= Project.objects.filter(group__in=gr).filter(status="Incomplete").order_by('-deadline')
     q_prjDone= Project.objects.filter(group__in=gr).filter(status="Complete")
     q_prjTotal= Project.objects.filter(group__in=gr).order_by('deadline')
     #set up pagination
@@ -136,28 +137,45 @@ def updateProject(request,id):
         if form.is_valid():
             form.save()
             return redirect('home',request.user.id)
+    gr= Group.objects.get(name=project.group)
+    urs= User.objects.filter(groups__name=gr.name)
+    for item in urs:
+        if item != request.user:
+            
+            notification= Notificatiion.objects.create(notification_type=2,from_user= request.user, to_user=item,project=project)
+    
     context={'form':form}
     return render(request,'project/projectUpdate.html',context)
 
 def deleteProject(request, id):
     project= Project.objects.get(id=id)
     if request.method=='POST':
+        gr= Group.objects.get(name=project.group)
+        urs= User.objects.filter(groups__name=gr.name)
+        notification= Notificatiion.objects.create(notification_type=3,from_user=request.user, to_user=request.user,project=project)
+        print(notification)
         project.delete()
         return redirect('home',request.user.id)
-        
+   
     context={'project':project}
     return render(request,'project/confirm-delete.html',context)
     
 def detailProject(request,project_id):
     prj= Project.objects.get(id=project_id)
-    task_obj= Task.objects.filter(project=prj.id)
+    task_obj= Task.objects.filter(project=prj.id).order_by('deadline').order_by('-status')
     gr= Group.objects.get(name=prj.group)
-    user=User.objects.filter(groups=gr)
-    
+    member=[]
+    for i in User.objects.filter(groups__name=gr.name):
+        member.append(i.username)
+        
+    #set up pagination
+    p_task= Paginator(task_obj,4)
+    page_task= request.GET.get('page')
+    task=p_task.get_page(page_task)
     context={
         'project':prj,
-        'task':task_obj,
-        'user':user,
+        'task':task,
+        'member':member,
     }
     return render(request,'project/projectDetail.html',context)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,7 +192,7 @@ def createTask(request,project_id):
             return redirect('detail',project_id=prj.id)
         else:
             messages.error(request, "Error create task")
-        
+    
     context={
         'formTask':formTask,
     }
@@ -189,7 +207,12 @@ def updateTask(request,task_id):
         if form_updateTask.is_valid():
             form_updateTask.save()
             return redirect('detail',prj.id)
-        
+    gr= Group.objects.get(name=prj.group)
+    urs= User.objects.filter(groups__name=gr.name)
+    for item in urs:
+        if item != request.user:
+            notification= Notificatiion.objects.create(notification_type=2,from_user=request.user, to_user=item,task=tsk)
+    
     context={
         'form_updateTask':form_updateTask,
     }
@@ -198,6 +221,13 @@ def updateTask(request,task_id):
 def deleteTask(request, id):
     tskDelete=Task.objects.get(id=id)
     if request.method=='POST':
+        prj= Project.objects.get(task=tskDelete)
+        gr= Group.objects.get(name=prj.group)
+        urs= User.objects.filter(groups__name=gr.name)
+        for item in urs:
+            if item != request.user:
+                notification= Notificatiion.objects.create(notification_type=3,from_user=request.user, to_user=item,task=tskDelete)
+                print(notification)
         tskDelete.delete()
         return redirect('home',request.user.id)
     
@@ -233,19 +263,63 @@ def deleteGroup(request,group_id):
     }
     return render(request,'user/group/deleteGroup.html',context)
 
+def addUser_toGroup(request, group_id):
+    if request.method=='POST':
+        userName=request.POST.get('userName')
+        g = Group.objects.get(id=group_id)
+        users = User.objects.get(username=userName)
+        # g.user_set.add(users)
+        users.groups.add(g)
+        urs= User.objects.get(username=userName)
+ 
+        notification= Notificatiion.objects.create(notification_type=1,from_user= request.user, to_user=urs,group=g)
+    
+    return redirect('detailGroup',group_id)
+
+def detailGroup(request,group_id):
+    gr= Group.objects.get(id=group_id)
+    member=[]
+    for i in User.objects.filter(groups__name=gr.name):
+        member.append(i.username)
+    project=[]
+    for i in Project.objects.filter(group__name=gr.name):
+        project.append(i.name_project)
+        
+    user= User.objects.all()
+    context={
+        'gr':gr,
+        'member':member,
+        'project':project,
+        'group_id':group_id,
+        'user':user,
+    }
+    return render(request,'user/group/groupDetail.html',context)
+    
 # ######################################
 
+class ProjectNotification(View):
+    def get(self, request, notification_id, project_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
+        project= Project.objects.get(id=project_id)
+        
+        notificaton.user_has_seen = True
+        notificaton.save()
+        return redirect('detail', project_id=project_id )
 
 
-def addUser(request):
-    g = Group.objects.get(name='My Group Name')
-    users = User.objects.all()
-    g.user_set.add(users)
-    return 
-def see_users(request):
+class DeleteNotification(View):
+    def get(self, request, notification_id,user_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
+        
+        notificaton.user_has_seen = True
+        notificaton.save()
+        return redirect('home',user_id )
 
-  user_status = online_users.models.OnlineUserActivity.get_user_activities(timedelta(seconds=60))
-  users = (user for user in  user_status)
-  context = {'online_users':online_users}
-  return render(request,'template.html',context)
-  
+class GroupNotification(View):
+    def get(self, request, notification_id, group_id,*args, **kwargs):
+        notificaton = Notificatiion.objects.get(id=notification_id)
+        group= Group.objects.get(id=group_id)
+        
+        notificaton.user_has_seen = True
+        notificaton.save()
+        return redirect('detailGroup', group_id=group_id )

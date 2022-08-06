@@ -54,13 +54,13 @@ Catendar đang tuyển mèo
                             <tr>
                                 <td> {{gr.id}}</td>
                                 <td>
-                                    <a  href="#" >{{gr.name}}</a>
+                                    {{gr.name}}
                                 </td>
                                 <td>{{gr.numMember}}</td>
                                 <td>{{gr.numProject}}</td>
                                 <td>
                                     <a type="submit" class="fa fa-pen" 
-                                        href="#" > </a>
+                                        href="{% url 'detailGroup' gr.id %}" > </a>
                                 </td>
                                 <td>
                                     <a type="submit" class="fa fa-trash"
@@ -73,16 +73,19 @@ Catendar đang tuyển mèo
                             
                     </table>
                 </div>
-                <!-- BEGIN: group1 -->
-               
-                <!-- END: group1 -->
                 
-               
-
+                <div class="row">
+                    <center>
+                        <img src="{% static 'images/meo1dong7.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 2px;">
+                    </center>
+    
+                </div>
+                
             </div>
+           
         </div>                   
 
-           
+      
             
     </div>
 {% endblock %}

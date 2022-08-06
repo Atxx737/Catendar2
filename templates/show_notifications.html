@@ -1,0 +1,76 @@
+<div  class="d-flex align-items-center dropdown ">
+    <i class=" fa fa-bell h-300 fs-3 position-relative " onclick="showNotification()"
+    
+        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{notification.count}}</span>
+        <ul class="dropdown-menu dropdown-menu-lg-end d-none" id="notification-container" aria-labelledby="dropdownMenuButton1" style="right: 0;left:unset ;min-width: 300px;">
+            {% for notification in notification %}
+            <!-- project -->
+                {% if notification.project %}
+                    
+                    {% if notification.notification_type == 2 %} 
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'project-noti' notification.id notification.project.id %}">
+                            <strong>@{{notification.from_user}}</strong> update a project: <strong>{{notification.project}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif notification.notification_type == 3 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'delete-noti' notification.id  notification.to_user.id %}">
+                            <strong>@{{notification.from_user}}</strong> delete a project: <strong>{{notification.project}}</strong>  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% endif%}
+
+            <!-- task -->
+                
+                {% elif notification.task %}
+                    {% if notification.notification_type == 1 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'project-noti' notification.id notification.project.id %}">
+                            <strong>@{{notification.from_user}}</strong> add a task: <strong>{{notification.task}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif notification.notification_type == 2 %} 
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'project-noti' notification.id notification.task.project.id %}">
+                            <strong>@{{notification.from_user}}</strong> update a task: <strong>{{notification.task}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif notification.notification_type == 3 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'delete-noti' notification.id  notification.to_user.id %}">
+                            <strong>@{{notification.from_user}}</strong> delete a task: <strong>{{notification.task}}</strong>  </a>
+                        <span class="dropdown-item-close">&times;</span>
+                    </li>
+                    {% endif%}
+            <!-- group -->
+                {% elif notification.group %}
+                    {% if notification.notification_type == 1 %}
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'group-noti' notification.id notification.group.id %}">
+                            <strong>@{{notification.from_user}}</strong> add you into a group: <strong>{{notification.group}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    {% elif notification.notification_type == 2 %} 
+                    <li class="dropdown-item-parent dropdown-item">
+                        <a href="{% url 'group-noti' notification.id notification.group.id %}">
+                            <strong>@{{notification.from_user}}</strong> update a group: <strong>{{notification.group}}</strong> </a>
+                        <p class="dropdown-item-close">&times;</p>
+                    </li>
+                    
+                    {% endif%}
+            <!-- group -->
+
+                {% endif%}
+
+            {% endfor%}
+        </ul>
+</div>
+
+<!-- <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
+    <li>
+        <a href="#" class="dropdown-item">Notification()</a>
+    </li>
+    
+</ul> -->

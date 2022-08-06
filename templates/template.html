@@ -19,6 +19,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{% static 'css/calendaredited.css' %}">
+    <link rel="stylesheet" href="{% static '/css/home.css'%}">
+
     {% block linkcss %}
 
     {% endblock %}
@@ -29,52 +31,48 @@
 
 <body >
     <!-- BEGIN: navbar -->
+    {% load custom_tags %}
 
-    <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-fluid px-5">
-            <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <img src="{% static 'images/catendar.png' %}" class="" style="width: 150px;" alt="">
-                    </li>
-                </ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- <li class="nav-item" style="width: 850px;">
+    <nav class="navbar navbar-expand-lg navbar-light p-0 " style="height: 55px;" >
+        <div class="nav align-items-center" style="width: 100%; margin: 0 30px; justify-content: space-between;">
+            <!-- Logo -->
+            <a class="d-flex align-items-center navbar-brand" href="#">
+                <img src="{% static 'images/catendar.png' %}" class="" style="width: 150px;" alt="">
+            </a>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button> -->
+            <div class=" justify-content-around" >
+                <!-- <ul class="me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" style="width: 850px;">
                         <form class="input-group">
                             <input type="text" class="form-control w-75" placeholder="Search" aria-label="Search"
                                 aria-describedby="basic-addon2">
                             <span class="input-group-text bg-light border-start-0" id="basic-addon2"><i
                                     class="fa fa-search"></i></span>
                         </form>
-                    </li> -->
-                </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
-                    <li class="nav-item text-center icon-img ">
-                        <i class="fa fa-moon h-100 mt-2 fs-4"></i>
                     </li>
-                    {% if request.user.is_authenticated %}
-
-                    <li class="nav-item ms-2 text-center icon-img">
-                        <i class="fa fa-bell h-100 mt-2 fs-4"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
-                            <li>
-                                <a href="#" class="dropdown-item">Notification({{notifications.count}})</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    {% endif %}
-
+                </ul> -->
+                
+                <!-- Noti and avatar -->
+                <ul class="mb-2 mb-lg-0 d-flex align-content-end mt-3 mt-lg-0">
                     {% if user.profile.id %}
-                    <li class="nav-item ms-2 avata" >
-                        <div class="header-img-wrap"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                     <!-- BEGIN: notifications -->
+
+                    <li class="d-flex align-items-center nav-item text-center icon-img mx-2">
+                        {% show_notifications %}
+                        
+                    </li>
+                    <!-- END: notifications -->
+                    <li class="nav-item ms-2 avata " >
+                        <div class="header-img-wrap"  id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false" >
                             <div class="img" style="background-image:url({{user.profile.avatar.url}})">
                             </div>
                         </div>
                         
                         <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 5px;">
                             <li>
-                                <a href="{% url 'profile' request.user.username %}" class="dropdown-item">Profile</a>
+                                <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
                             </li>
                             <li>
                                 <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
@@ -102,7 +100,7 @@
 
     <!-- BEGIN: content -->
     <!--BEGIN: nav-bar-side  -->
-    <div class="position-fixed bg-white px-3 mt-4 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh">
+    <div class="position-fixed bg-white px-3 mt-2 shadow-lg" style="font-size: 2rem; left: 0px; height:100vh">
         <div class="text-center py-5">
             <div class="my-auto">
                 <div class="icon">
@@ -118,18 +116,20 @@
             <div class="icon">
                 <a href="{% url 'pomodoro' %}" class="fa fa-cat my-4"></a>
             </div>
-            <div class="icon">
-                <a href="{% url 'group' request.user.id%}" class="fa fa-users"></a>
+            <div class="icon" >
+                <a href="{% url 'group' request.user.id%}" class="fa fa-users my-4"></a>
             </div>
         </div>
     </div>
-    <section class="container-fluid mt-4 overflow-hidden " >
-        <div class="row ms-5 ps-3">
-            <!--END: nav-bar-side  -->
+    <!--END: nav-bar-side  -->
+
+    <section class="container-fluid overflow-hidden "  >
+        <div class="mt-5 pt-4"></div>
+        <div class="row ms-5 ps-3" >
             <!--BEGIN: frame-container  -->
-            <div class="col-12 col-lg-9 rounded-3  ">
-                <div class="container-fluid bg-white rounded shadow overflow-hidden" style="height: 90vh;">
-                    <div class="d-flex w-100 justify-content-between pt-3">
+            <div class="col-12 col-lg-9 rounded-3  " >
+                <div class="container-fluid bg-white shadow overflow-hidden" style="border-radius: 12px; min-height: 90vh">
+                    <div class="d-flex w-100 justify-content-between pt-3" >
                         <h2 class="d-inline ">
                             {% block title-frame %}
 
@@ -189,26 +189,14 @@
                 </div>
                 <!-- END: calendar -->
 
-                <!-- BEGIN: online -->
+                <!-- BEGIN: online anh meo -->
                 <div class="w-100 mt-3 ">
                     <div class="container-fluid px-1">
                         <div class="ms-0 container py-3 rounded-3 overflow-hidden shadow"
                             style="background-color: #fff; font-size: 1.5rem;">
-                            <h2>Partners</h2>
-                            <!-- BEGIN:onl -->
-                            {% for user in online_users %}
-                            <div class="d-flex text-success"><span><i
-                                class="fa fa-fish mr-3 text-success mx-2"></i></span>{{user.user}}
+                            <div class="img" style="background-image:url(https://yt3.ggpht.com/ROi_4aiDO-aftJVOHqHiGoEeCnxuvwLoIi8jPnGoqJ2_nGBQD8o4c2y9sGOQXX0B1Egvvqd5=s900-c-k-c0x00ffffff-no-rj)">
                             </div>
-                            {% endfor %}
                             
-                            <div class="d-flex text-success"><span><i
-                                        class="fa fa-fish mr-3 text-success mx-2"></i></span>{{request.user.username}}</div>
-                            <!-- END:onl -->
-                            <div class="d-flex text-secondary"><span><i class="fa fa-fish mr-3 mx-2"></i></span>Tustal
-                            </div>
-                            <div class="d-flex text-secondary"><span><i class="fa fa-fish mr-3 mx-2"></i></span>NKD
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,6 +214,7 @@
 
     {% endblock %}
 
+
     <script src="{% static 'js/wow.min.js'%}"></script>
     <!-- <script src="{% static 'js/bootstrap.js'%}"></script> -->
     <script>
@@ -239,5 +228,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{% static 'js/calendar.js' %}"></script>
+    <script src="{% static 'js/notification.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>

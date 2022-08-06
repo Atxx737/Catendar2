@@ -21,11 +21,11 @@ Catendar - Home
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" 
-                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Details</button>
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true" style="font-size: 20px;">Details</button>
             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Task</button>
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false" style="font-size: 20px;">Task</button>
             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" 
-                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Member</button>
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-size: 20px;">Member</button>
         </div>
         
     </nav>
@@ -45,10 +45,17 @@ Catendar - Home
                                 <input class="nu-task " hidden  value={{project.Nu_task}}>
                                 <input class="nu-taskdone " hidden  value={{project.Nu_taskDone}}>
                             </div>
+<<<<<<< HEAD
                     </div>
                         <!-- END: Chart -->
 
                         <div  class="col-sm-12 col-lg-6">
+=======
+                        </div>
+                        <!-- END: Chart -->
+
+                        <div class="col-sm-12 col-lg-6 ">
+>>>>>>> new_brach
                             <div class="content">
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label h5">Name project:</label>
@@ -61,6 +68,10 @@ Catendar - Home
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label h5">Deadline:</label>
                                     <p  class="form-control" id="formGroupExampleInput" > {{project.deadline|date:"d/m/Y"}}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label h5">Group:</label>
+                                    <p  class="form-control" id="formGroupExampleInput" > {{project.group}}</p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label h5">Status:</label>
@@ -82,7 +93,6 @@ Catendar - Home
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="content-khung row">
                 <table class="table table-hover">
-                    
                         <thead>
                             <tr>
                                 <th scope="col">Task</th>
@@ -114,12 +124,50 @@ Catendar - Home
                             {% endfor %}
                         </tbody>
                         
-                            
+                        <center>
+                            <img src="{% static 'images/meo1dong9.png'%}" class="img-fluid" alt="Responsive image" style="margin-bottom: 2px;">
+                        </center>
+
                 </table>
                 
                     
                 <a type="submit" style="width: 200px" class="btn btn-outline-primary" 
                         href="{% url 'createTask' project.id %}" > Add new task</a>
+
+                <!-- BEGIN:Pagination -->
+            <div class="pagination" style="justify-content: flex-end;">
+                <hr>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if task.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{task.previous_page_number}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                        <li class="page-item disabled"><a class="page-link" href="#">{{task.number}}</a></li>
+                        
+                    {% if task.has_next  %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{task.next_page_number}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                        <a class="page-link" href="?page={{task.paginator.num_pages}}">Last</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+                <!-- END:Pagination -->
+
             </div>
             
         </div>
@@ -127,11 +175,36 @@ Catendar - Home
         
         <!--BEGIN: frame-project User -->
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <div class="content-khung row">
+            <div class="content-khung row  px-2">
+                 <!-- BEGIN: member -->
+                 <div class="col-sm-12 col-lg-6 ">
+                    <div class="member-in-group">
+                        <div class="member-in-group"> 
+                            <ul class="list-group list-group-flush">
+                                {% for item in member %}
+
+                                <li class="list-group-item">
+                                    <a href="{% url 'profile' item %}">{{item}}</a>
+                                </li>
+                                {% endfor%}
+                                
+                              </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 ">
+                    <center>
+                        <img src="{% static 'images/meo1dong8.png'%}" class="img-fluid" alt="Responsive image" style="margin-top: 2px;">
+                    </center>
+
+                </div>
                 
+                <!-- END: member -->
             </div>
         </div>
         <!--END: frame-project User -->
+
 
     </div>
     <!--END: content -->
@@ -139,5 +212,9 @@ Catendar - Home
 {% endblock %}
 
 {% block script %}
+<<<<<<< HEAD
     <script src="{% static '/js/projectDetail.js'%}"></script>
+=======
+    <script src="{% static 'js/projectDetail.js' %}"></script>
+>>>>>>> new_brach
 {% endblock %}

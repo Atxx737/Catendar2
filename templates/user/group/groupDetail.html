@@ -3,139 +3,90 @@
 {% load static %}
 
 {% block linkcss %}
-    <link rel="stylesheet" href="{% static '/css/home.css'%}">
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
 {% endblock %}
 
 {% block title %}
-Catendar - Home
+Catendar đang tuyển mèo
 {% endblock %}
+
 
 
 {% block title-frame %}
-{{project.name_project}}
+    Group (ΦωΦ): {{gr.name}}
 {% endblock %}
 
 {% block thongtin %}
-<div class="row">
-    <!--BEGIN: Nav-tab -->
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" 
-                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Details</button>
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Task</button>
-            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" 
-                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">User</button>
-        </div>
-        
-    </nav>
-    <!-- END: Nav-tab -->
-
-    <!--BEGIN: content -->
-    <div class="tab-content" id="nav-tabContent">
-        <!--BEGIN: frame-project Detail -->
+    <div class="row mt-5 py-4">
+        <!-- <div class="col-2 fw-bolder" click="show()">5<br />In progess <i class="fa fa-paw"></i></div> -->
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="content-khung row"> 
-                <div class="container">
-                    <div class="row py-4">
-                        <!-- BEGIN: Chart -->
-                        <div class="col px-5">
-                                <div class="chart-bar">
-                                    
-                                </div>
+            <div class="content-khung row">
+                <div class="form-group">
+                    <form class="row g-3 form-horizontal" action="{% url 'addUser' group_id  %}" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                         <select name="userName" id="userName" class="form-select select-chosen" data-placeholder="Choose a User" style="">
+                             {% for i in user%}
+                             <option value="{{i.username}}">{{i.username}}</option>
+                             {% endfor%}
+                         </select>
                         </div>
-                        <!-- END: Chart -->
-
-                        <div class="col ">
-                            <div class="content">
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label h5">Name project:</label>
-                                    <p  class="form-control" id="formGroupExampleInput" > {{project.name_project}}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label h5">Decriptions:</label>
-                                    <p  class="form-control" id="formGroupExampleInput" > {{project.decription}}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label h5">Deadline:</label>
-                                    <p  class="form-control" id="formGroupExampleInput" > {{project.deadline|date:"d/m/Y"}}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label h5">Status:</label>
-                                    <p  class="form-control" id="formGroupExampleInput" > {{project.status}}</p>
-                                </div>
-                                <a type="submit" style="transform: translateX(900%) !important;" 
-                                    class="btn btn-outline-primary" href="{% url 'update' project.id %}" > Edit</a>
-
+                        <div class="col-md-6">
+                          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                        </div>
+                      </form>
+                   
+            </div>
+            <hr>
+                    
+            <div class="container">
+                <div class="row py-4">
+                    <!-- BEGIN: member -->
+                    <div class="col-sm-12 col-lg-6 ">
+                        <div class="member-in-group">
+                            <h2>Member</h2>
+                            <div class="member-in-group"> 
+                                <ul class="list-group list-group-flush">
+                                    {% for item in member %}
+                                    <li class="list-group-item">{{item}}</li>
+                                    {% endfor%}
+                                    
+                                  </ul>
+                                
                             </div>
                         </div>
                     </div>
-                  </div>
-                
-            </div>
-        </div>
-        <!--END: frame-project Detail  -->
+                    <!-- END: member -->
 
-        <!--BEGIN: frame-project Task  -->
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="content-khung row">
-                <table class="table table-hover">
-                    
-                        <thead>
-                            <tr>
-                                <th scope="col">Task</th>
-                                <th scope="col">Decriptions</th>
-                                <th scope="col">Deadline</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                      
-                        <tbody >
-                       
-                            {% for task in task %}
-                            <tr>
-                                <td> {{task.task}}</td>
-                                <td>{{task.decription}}</td>
-                                <td>{{task.deadline|date:"d/m/Y"}}</td>
-                                <td>{{task.status}}</td>
-                                <td>
-                                    <a type="submit" class="fa fa-pen" 
-                                        href="{% url 'updateTask' task.id %}" > </a>
-                                </td>
-                                <td>
-                                    <a type="submit" class="fa fa-trash"
-                                        href="{% url 'deleteTask' task.id %}" > </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        
+                    <div class="col-sm-12 col-lg-6 ">
+                        <h2>Project</h2>
+
+                        <div class="project-in-group"> 
+                            <ul class="list-group list-group-flush">
+                                {% for item in project %}
+                                <li class="list-group-item">{{item}}</li>
+                                {% endfor%}
+                                
+                              </ul>
                             
-                </table>
-                
-                    
-                <a type="submit" style="width: 200px" class="btn btn-outline-primary" 
-                        href="{% url 'createTask' project.id %}" > Add new task</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-        </div>
-        <!--END: frame-project Task  -->
-        
-        <!--BEGIN: frame-project User -->
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <div class="content-khung row">
+                   
+            
+                <!-- BEGIN: group1 -->
+               
+                <!-- END: group1 -->
                 
+               
+
             </div>
-        </div>
-        <!--END: frame-project User -->
+        </div>                   
 
+           
+            
     </div>
-    <!--END: content -->
-</div>
 {% endblock %}
 
-{% block script %}
-
-{% endblock %}

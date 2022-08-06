@@ -7,6 +7,7 @@ from PIL import Image
 from django.urls import reverse
 from django.dispatch import receiver
 from datetime import date
+from django.utils import timezone
 from django.db.models.fields.related import ForeignKey
 from django.db.models.signals import post_save
 
@@ -84,19 +85,13 @@ class Project(ItemBase):
         Nu_task= Task.objects.filter(project=self.id).count()
         return Nu_task
     def Nu_taskDone(self):
-        Nu_taskDone=Task.objects.filter(project=self.id).filter(status='Incomplete').count()
+        Nu_taskDone=Task.objects.filter(project=self.id).filter(status='Complete').count()
         return Nu_taskDone
     def DayLeft(self):
         prj=Project.objects.get(id=self.id)
         dl= prj.deadline
-        print('dl:',dl)
-        
         day_now= date.today()
-        print('day_now:',day_now)
-        
         daysLeft= (dl - day_now).days
-        print('daysLeft:',daysLeft)
-        
         s=''
         if (daysLeft) > 1:
             s= str(daysLeft) + ' days left'
@@ -136,7 +131,14 @@ class MyGroup(Group):
     def numProject(self):
         return Project.objects.filter(group__name=self.name).count()
     
-# class Membership(models.Model):
-#     person = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-#     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
-#     date_joined = models.DateField(auto_now_add=True)
+class Notificatiion(models.Model):
+    # 1= Create, 2= Update, 3= Delete
+    notification_type=models.IntegerField()
+    to_user= models.ForeignKey(User, related_name='notification_to', on_delete=models.CASCADE, null=True)
+    from_user= models.ForeignKey(User, related_name='notification_from', on_delete=models.CASCADE, null=True)
+    project= models.ForeignKey('Project',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    task= models.ForeignKey('Task',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    group= models.ForeignKey('MyGroup',on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+    date=models.DateTimeField(default=timezone.now)
+    user_has_seen= models.BooleanField(default=False)
+    
