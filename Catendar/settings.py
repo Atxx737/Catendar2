@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-mjuo!66t3c*^#d2ph51v0f&2pl85pihakij_btvro^uv8s8vi(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1'] #for Docker
 
 
 # Application definition
@@ -80,17 +81,18 @@ WSGI_APPLICATION = 'Catendar.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DB_NAME="catendardb"
-DB_USER="yoyoo"
-DB_PASSWORD="123"
+# DB_NAME="catendardb"
+# DB_USER="yoyoo"
+# DB_PASSWORD="123"
+# DB_HOST ="localhost"
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER ,
-        'PASSWORD': DB_PASSWORD,
-        'HOST':'localhost',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER') ,
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST':os.environ.get('DB_HOST'),
         'PORT': '5432',
     }
 }
